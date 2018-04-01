@@ -262,17 +262,44 @@ nav h1 a { /*ok*/
 }
 #reviews-list li {
   background-color: #ffffff;
-  border: 2px solid #f3f3f3;
   display: block;
   list-style-type: none;
-  margin: 0 0 30px;
+  margin: 0 0 3rem;
   overflow: hidden;
-  padding: 0 20px 20px;
   position: relative;
   width: 85%;
+  border-radius: 2rem 0;
 }
-#reviews-list li p {
-  margin: 0 0 10px;
+.reviewer-name-date {
+  background-color: #333333;
+  margin: 0;
+  line-height: 4rem;
+}
+.reviewer-name {
+  font-size: 1.5rem;
+  color:#ffffff;
+  margin-left: 2rem;
+}
+.reviewer-date {
+  color: #e2dddd;
+  text-shadow: 0 0.1rem #000000;
+  float: right;
+  margin-right: 2rem;
+}
+.reviewer-rating {
+  margin: 1.25rem 2rem 1rem;
+}
+.reviewer-rating-badge {
+ background-color: #ffbd2f;
+ color: #ffffff;
+ font-weight: bold;
+ text-transform: uppercase;
+ border-radius: 0.2rem;
+ letter-spacing: 0.1rem;
+ padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+}
+.reviewer-comments {
+  margin: 0 2rem 2rem;
 }
 #restaurant-hours td {
   color: #666666;
