@@ -16,7 +16,6 @@ ul, li {
 	font-family: 'Montserrat', sans-serif;
 	font-size: 1rem;
   color: #333333;
-  text-align: justify;
 }
 a {
   color: #ffffff;
@@ -306,13 +305,13 @@ nav h1 a {
   margin: 0 0 3rem;
   overflow: hidden;
   position: relative;
-  width: 85%;
+  width: 95%;
   border-radius: 2rem 0;
 }
 .reviewer-name-date {
   background-color: #333333;
   margin: 0;
-  line-height: 2rem;
+  line-height: 3rem;
 }
 .reviewer-name {
   font-size: 1.5rem;
@@ -320,6 +319,7 @@ nav h1 a {
   margin-left: 2rem;
 }
 .reviewer-date {
+  display: block;
   color: #e2dddd;
   text-shadow: 0 0.1rem #000000;
   float: right;
@@ -343,14 +343,12 @@ nav h1 a {
 #restaurant-hours td {
   color: #666666;
 }
-@media screen and (max-width: 870px) {
+@media screen and (max-width: 820px) {
   .reviewer-date {
-    display: block;
     float: none;
     margin-left: 2rem;
   }
   .reviewer-name-date {
-    line-height: 3rem;
     height: 6rem;
   }
 }
@@ -368,7 +366,22 @@ nav h1 a {
   }
   #reviews-list,
   #reviews-list li {
-    width: 95%;
     overflow-x: hidden;
+  }
+  .reviewer-date {
+    float: right;
+    margin-left: 0;
+  }
+  .reviewer-name-date {
+    height: unset;
+  }
+}
+@media screen and (max-width: 380px) {
+  .reviewer-date {
+    float: none;
+    margin-left: 2rem;
+  }
+  .reviewer-name-date {
+    height: 6rem;
   }
 }
