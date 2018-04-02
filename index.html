@@ -20,14 +20,20 @@
       <section>
         <div class="filter-options">
           <h2>Filter Results</h2>
-          <label for="neighborhoods-select">Choose a restaurant in the neighbourhood.</label>
-          <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
-            <option value="all">All Neighborhoods</option>
-          </select>
-          <label for="cuisines-select">Choose cuisine.</label>
-          <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
-            <option value="all">All Cuisines</option>
-          </select>
+          <div class="row">
+            <div class="column">
+              <label for="neighborhoods-select">Choose a restaurant in the neighbourhood</label>
+              <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
+                <option value="all">All Neighborhoods</option>
+              </select>
+            </div>
+            <div class="column">
+              <label for="cuisines-select">Choose cuisine</label>
+              <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
+                <option value="all">All Cuisines</option>
+              </select>
+            </div>
+          </div>
         </div>
         <ul id="restaurants-list"></ul>
       </section>
