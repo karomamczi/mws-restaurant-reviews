@@ -161,12 +161,9 @@ nav h1 a { /*ok*/
   background-color: #f3f3f3;
   text-align: center;
   list-style-type: none;
-  box-sizing: border-box;
-}
-#restaurants-list:after { /*ok*/
-  content: "";
-  display: table;
-  clear: both;
+  margin-left: -2rem;
+  display: flex;
+  flex-wrap: wrap;
 }
 #restaurants-list li { /*ok*/
   background-color: #ffffff;
@@ -176,15 +173,21 @@ nav h1 a { /*ok*/
   min-height: 15rem;
   padding: 0 2rem 2rem;
   text-align: left;
-  width: 15rem;
-  float: left;
+  width: 100%;
 }
+@media screen and (min-width: 685px) {
+  #restaurants-list li {
+    width: calc(50% - 7.5rem);
+  }
+}
+
 #restaurants-list .restaurant-img { /*ok*/
   background-color: #cccccc;
   display: block;
   margin-top: 2rem;
   max-width: 100%;
   height: auto;
+  text-align: center;
 }
 #restaurants-list li h1 { /*ok*/
   color: #f18200;
