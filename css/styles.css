@@ -40,7 +40,7 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
 }
 #footer {
   background-color: #444444;
-  color: #aaaaaa;
+  color: #bbbbbb;
   font-size: 0.7rem;
   letter-spacing: 0.1rem;
   padding: 2rem 0 2rem 0;
@@ -48,7 +48,7 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
   text-transform: uppercase;
 }
 #footer a {
-  color: #f18200;
+  color: #ff9e2f;
 }
 /* ====================== Navigation ====================== */
 nav {
@@ -95,7 +95,7 @@ nav h1 a {
 
 /* Add a color to all links inside the list */
 #breadcrumb li a {
-  color: #0275d8;
+  color: #0264ba;
   text-decoration: none;
 }
 
@@ -194,7 +194,7 @@ nav h1 a {
   text-align: center;
 }
 #restaurants-list li h1 {
-  color: #f18200;
+  color: #b15f00;
   font-family: 'Montserrat', sans-serif;
   font-size: 1.1rem;
   font-weight: 200;
@@ -208,7 +208,7 @@ nav h1 a {
   font-size: 0.95rem;
 }
 #restaurants-list li a {
-  background-color: #f18200;
+  background-color: #b15f00;
   color: #ffffff;
   display: inline-block;
   font-size: 0.8rem;
@@ -249,7 +249,7 @@ nav h1 a {
   width: 50%;
 }
 #restaurant-name {
-  color: #f18200;
+  color: #b15f00;
   font-size: 1.5rem;
   font-weight: 200;
   letter-spacing: 0;
@@ -288,7 +288,7 @@ nav h1 a {
   width: 50%;
 }
 #reviews-container h2 {
-  color: #f18200;
+  color: #b15f00;
   font-size: 2rem;
   font-weight: 300;
   letter-spacing: -0.1rem;
@@ -329,7 +329,7 @@ nav h1 a {
   margin: 1.25rem 2rem 1rem;
 }
 .reviewer-rating-badge {
- background-color: #ffbd2f;
+ background-color: #bc5a00;
  color: #ffffff;
  font-weight: bold;
  text-transform: uppercase;
