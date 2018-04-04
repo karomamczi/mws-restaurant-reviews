@@ -362,7 +362,8 @@ nav h1 a {
   }
   .inside #map-container {
     height: 15rem;
-
+    position: relative;
+    top: 8rem;
   }
   #reviews-list,
   #reviews-list li {
