@@ -1,0 +1,31 @@
+{
+  "name": "Restaurant Reviews",
+  "short_name": "Restaurant Reviews",
+  "start_url": "/?homescreen=1",
+  "scope": "/",
+  "orientation": "portrait",
+  "display": "standalone",
+  "background_color": "#252831",
+  "theme_color": "#252831",
+  "icons": [
+    {
+      "src": "/img/restaurant-16.png",
+      "type": "image/png",
+      "sizes": "16x16"
+    },{
+      "src": "/img/restaurant-128.png",
+      "type": "image/png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "/img/restaurant-256.png",
+      "type": "image/png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "/img/restaurant-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}

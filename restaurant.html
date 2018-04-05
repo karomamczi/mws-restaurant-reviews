@@ -3,11 +3,16 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='mobile-web-app-capable' content='yes'>
+    <link rel="shortcut icon" type="image/png" href="/img/restaurant-16.png"/>
+    <link rel="manifest" href="/manifest.json">
     <!-- Normalize.css for better cross-browser consistency -->
     <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
     <!-- Main CSS file -->
     <link rel="stylesheet" href="css/styles.css" type="text/css">
-    <title>Restaurant Info</title>
+    <meta name='theme-color' content='#252831'>
+    <title>Restaurant Reviews</title>
   </head>
   <body class="inside">
     <!-- Beginning header -->
@@ -53,6 +58,7 @@
     </footer>
     <!-- End footer -->
     <!-- Beginning scripts -->
+
     <!-- Database helpers -->
     <script src="js/dbhelper.js"></script>
     <!-- Main javascript file -->
@@ -61,6 +67,8 @@
     <script src="js/current_year.js"></script>
     <!-- Google Maps -->
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgqil8XFCOnxMvQB0pKqzOr8Z_qUGiu94&libraries=places&callback=initMap"></script>
+    <!-- Service worker -->
+    <script src="js/index_controller.js"></script>
     <!-- End scripts -->
   </body>
 </html>
