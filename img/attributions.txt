@@ -1,0 +1,6 @@
+Icons:
+* restaurant-16.png,
+* restaurant-128.png,
+* restaurant-256.png,
+* restaurant-512.png
+downloaded from https://www.iconfinder.com/free_icons
