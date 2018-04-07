@@ -1,6 +1,6 @@
 {
   "name": "Restaurant Reviews",
-  "short_name": "Restaurant Reviews",
+  "short_name": "Rest Revs",
   "start_url": "/?homescreen=1",
   "scope": "/",
   "orientation": "portrait",
