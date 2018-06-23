@@ -24,7 +24,8 @@ In a terminal, check the version of Python you have: `python -V`. If you have Py
 1. Download [Stage 2 repository](https://github.com/karomamczi/mws-restaurant-stage-2), which contains node server.
 
 2. Install dependencies via `npm install`.
-3. Run server via `node server`.
+3. Within that project run server via `node server`.
+4. Keep it running along with Stage 1 `http://localhost:8000`.
 
 You may find more information in the [README](https://github.com/karomamczi/mws-restaurant-stage-2/blob/master/README.md) file of the Stage 2 project.
 
