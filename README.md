@@ -15,7 +15,7 @@ _Restaurants Reviews_ app meets conditions of:
 
 ### Getting Started, Prerequisites, Installing
 
-1. In the main folder of this repo, run `npm install` in order to install dependencies.
+1. In the main folder of this repo, run `npm install` and then, `bower install`, in order to install dependencies.
 2. After installation start the app with `gulp serve` command.
 3. A window or new tab in your browser will show up as `http://localhost:8000`.
 
