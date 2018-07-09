@@ -1,4 +1,3 @@
-// generated on 2018-07-01 using generator-webapp 3.0.1
 const gulp = require('gulp');
 const gulpLoadPlugins = require('gulp-load-plugins');
 const browserSync = require('browser-sync').create();
@@ -135,7 +134,6 @@ gulp.task('serve:test', ['js'], () => {
   gulp.watch('test/spec/**/*.js', ['lint:test']);
 });
 
-// inject bower components
 gulp.task('wiredep', () => {
   gulp.src('app/*.html')
     .pipe(wiredep({
