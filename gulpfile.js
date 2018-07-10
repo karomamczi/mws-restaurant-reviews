@@ -23,7 +23,9 @@ gulp.task('js', () => {
   return gulp.src('app/js/**/*.js')
     .pipe($.plumber())
     .pipe($.if(dev, $.sourcemaps.init()))
-    //.pipe($.babel())
+    .pipe($.babel({
+        presets: ['env']
+    }))
     .pipe($.if(dev, $.sourcemaps.write('.')))
     .pipe(gulp.dest('.tmp/js'))
     .pipe(reload({stream: true}));
@@ -130,7 +132,7 @@ gulp.task('serve:test', ['js'], () => {
   });
 
   gulp.watch('app/js/**/*.js', ['js']);
-  gulp.watch(['test/spec/**/*.js', 'test/index.html']).on('change', reload);
+  gulp.watch(['test/spec/**/*.js', 'test/index.html', 'test/restaurant.html']).on('change', reload);
   gulp.watch('test/spec/**/*.js', ['lint:test']);
 });
 
