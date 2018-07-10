@@ -23,7 +23,7 @@ gulp.task('js', () => {
   return gulp.src('app/js/**/*.js')
     .pipe($.plumber())
     .pipe($.if(dev, $.sourcemaps.init()))
-    .pipe($.babel())
+    //.pipe($.babel())
     .pipe($.if(dev, $.sourcemaps.write('.')))
     .pipe(gulp.dest('.tmp/js'))
     .pipe(reload({stream: true}));
