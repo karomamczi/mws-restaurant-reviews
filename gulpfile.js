@@ -4,6 +4,9 @@ const browserSync = require('browser-sync').create();
 const del = require('del');
 const wiredep = require('wiredep').stream;
 const runSequence = require('run-sequence');
+const browserify = require('browserify');
+const babelify = require('babelify');
+const sourceStream = require('vinyl-source-stream');
 
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
@@ -31,6 +34,15 @@ gulp.task('js', () => {
     .pipe(reload({stream: true}));
 });
 
+gulp.task('sw', () => {
+  return browserify({debug: true})
+    .transform(babelify)
+    .require('app/service_worker.js', {entry: true})
+    .bundle()
+    .pipe(sourceStream('service_worker.js'))
+    .pipe(gulp.dest('.tmp/'))
+});
+
 function lint(files) {
   return gulp.src(files)
     .pipe($.eslint({ fix: true }))
@@ -48,7 +60,7 @@ gulp.task('lint:test', () => {
     .pipe(gulp.dest('test/spec'));
 });
 
-gulp.task('html', ['css', 'js'], () => {
+gulp.task('html', ['css', 'js', 'sw'], () => {
   return gulp.src('app/*.html')
     .pipe($.useref({searchPath: ['.tmp', 'app', '.']}))
     .pipe($.if(/\.js$/, $.uglify({compress: {drop_console: true}})))
