@@ -1,3 +1,12 @@
+import idb from 'idb';
+
+const dbPromise = idb.open('mws-restaurants', 1, upgradeDb => {
+  switch (upgradeDb.oldVersion) {
+    case 0:
+      upgradeDb.createObjectStore('restaurants', {keyPath: 'id'});
+  }
+});
+
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open('restaurant-reviews').then((cache) => {

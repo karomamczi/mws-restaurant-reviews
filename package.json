@@ -53,5 +53,8 @@
         "single"
       ]
     }
+  },
+  "dependencies": {
+    "idb": "^2.1.3"
   }
 }
