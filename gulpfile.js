@@ -4,9 +4,6 @@ const browserSync = require('browser-sync').create();
 const del = require('del');
 const wiredep = require('wiredep').stream;
 const runSequence = require('run-sequence');
-const browserify = require('browserify');
-const babelify = require('babelify');
-const sourceStream = require('vinyl-source-stream');
 
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
@@ -35,13 +32,16 @@ gulp.task('js', () => {
 });
 
 gulp.task('sw', () => {
-  return browserify({debug: true})
-    .transform(babelify)
-    .require('app/service_worker.js', {entry: true})
-    .bundle()
-    .pipe(sourceStream('service_worker.js'))
-    .pipe(gulp.dest('.tmp/'))
-});
+  return gulp.src('app/service_worker.js')
+  .pipe($.plumber())
+  .pipe($.if(dev, $.sourcemaps.init()))
+  .pipe($.babel({
+      presets: ['env']
+  }))
+  .pipe($.if(dev, $.sourcemaps.write('.')))
+  .pipe(gulp.dest('.tmp/'))
+  .pipe(reload({stream: true}));
+})
 
 function lint(files) {
   return gulp.src(files)
