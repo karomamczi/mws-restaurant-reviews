@@ -78,7 +78,7 @@ gulp.task('lint:test', () => {
     .pipe(gulp.dest('test/spec'));
 });
 
-gulp.task('html', ['css', 'js', 'idb', 'sw'], () => {
+gulp.task('html', ['css', 'js', 'db', 'sw'], () => {
   return gulp.src('app/*.html')
     .pipe($.useref({searchPath: ['.tmp', 'app', '.']}))
     .pipe($.if(/\.js$/, $.uglify({compress: {drop_console: true}})))
@@ -114,7 +114,10 @@ gulp.task('extras', () => {
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
 gulp.task('serve', () => {
-  runSequence(['clean', 'wiredep'], ['css', 'js'], () => {
+  runSequence(
+    ['clean', 'wiredep'],
+    ['html', 'css', 'js', 'db', 'sw'],
+    () => {
     browserSync.init({
       notify: false,
       port: 8000,
@@ -131,8 +134,9 @@ gulp.task('serve', () => {
       'app/img/**/*'
     ]).on('change', reload);
 
-    gulp.watch('app/css/**/*.css', ['css']);
-    gulp.watch('app/js/**/*.js', ['js']);
+    gulp.watch('app/css/**/*.css', ['html', 'css']);
+    gulp.watch('app/js/**/*.js', ['html', 'js', 'db']);
+    gulp.watch('app/sw.js', ['sw']);
     gulp.watch('bower.json', ['wiredep']);
   });
 });
