@@ -1,24 +1,36 @@
-import idb from 'idb';
-
-const dbPromise = idb.open('mws-restaurants', 1, upgradeDb => {
-  switch (upgradeDb.oldVersion) {
-    case 0:
-      upgradeDb.createObjectStore('restaurants', {keyPath: 'id'});
-  }
-});
-
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open('restaurant-reviews').then((cache) => {
+    caches.open('restaurants').then((cache) => {
       return cache.addAll([
         '/',
+        '/index.html',
+        '/restaurant.html',
         '/js/main.js',
         '/js/restaurant_info.js',
         '/js/dbhelper.js',
         '/js/current_year.js',
         '/js/index_controller.js',
-        '/css/styles.css'
-        ]);
+        '/css/styles.css',
+        '/img/1.jpg',
+        '/img/2.jpg',
+        '/img/3.jpg',
+        '/img/4.jpg',
+        '/img/5.jpg',
+        '/img/6.jpg',
+        '/img/7.jpg',
+        '/img/8.jpg',
+        '/img/9.jpg',
+        '/img/10.jpg',
+        '/img/restaurant-16.png',
+        '/img/restaurant-128.png',
+        '/img/restaurant-256.png',
+        '/img/restaurant-512.png'
+        ]).then(() => {
+          console.log('Files cached successfully.');
+          return self.skipWaiting();
+        }).catch((err) => {
+          console.log('File cache failed with:', err)
+        });
     })
   );
 });
@@ -26,8 +38,14 @@ self.addEventListener('install', (event) => {
 
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
+    caches.open('restaurants').then((cache) => {
+      return cache.match(event.request).then((response) => {
+        return response || fetch(event.request).then((res) => {
+          cache.put(event.request, res.clone());
+          return res;
+        });
+      })
     })
+
   );
 });
