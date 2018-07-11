@@ -27,7 +27,7 @@ self.addEventListener('install', (event) => {
         '/img/restaurant-256.png',
         '/img/restaurant-512.png'
         ]).then(() => {
-          console.log('Files cached successfully.');
+          console.log('All files are cached successfully.');
           return self.skipWaiting();
         }).catch((err) => {
           console.log('File cache failed with:', err)

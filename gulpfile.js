@@ -4,6 +4,9 @@ const browserSync = require('browser-sync').create();
 const del = require('del');
 const wiredep = require('wiredep').stream;
 const runSequence = require('run-sequence');
+const browserify = require('browserify');
+const babelify = require('babelify');
+const source = require('vinyl-source-stream');
 
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
@@ -20,7 +23,7 @@ gulp.task('css', () => {
 });
 
 gulp.task('js', () => {
-  return gulp.src('app/js/**/*.js')
+  return gulp.src(['app/js/**/*.js', '!app/js/**/restaurant_idb.js'])
     .pipe($.plumber())
     .pipe($.if(dev, $.sourcemaps.init()))
     .pipe($.babel({
@@ -43,6 +46,21 @@ gulp.task('sw', () => {
   .pipe(reload({stream: true}));
 })
 
+gulp.task('db', () => {
+  const b = browserify({
+    debug: true
+  });
+
+  return b
+    .transform('babelify', {
+      presets: ['env']
+    })
+    .require('app/js/restaurant_idb.js', { entry: true })
+    .bundle()
+    .pipe(source('restaurant_idb.js'))
+    .pipe(gulp.dest('.tmp/js'));
+});
+
 function lint(files) {
   return gulp.src(files)
     .pipe($.eslint({ fix: true }))
@@ -60,7 +78,7 @@ gulp.task('lint:test', () => {
     .pipe(gulp.dest('test/spec'));
 });
 
-gulp.task('html', ['css', 'js', 'sw'], () => {
+gulp.task('html', ['css', 'js', 'idb', 'sw'], () => {
   return gulp.src('app/*.html')
     .pipe($.useref({searchPath: ['.tmp', 'app', '.']}))
     .pipe($.if(/\.js$/, $.uglify({compress: {drop_console: true}})))
