@@ -6,10 +6,10 @@ class RestaurantDb {
     this.name = name;
     this.version = version;
     this.database;
-    this.dbPromise = idb.open('restaurants', 1, upgradeDb => {
+    this.dbPromise = idb.open('restaurant-reviews', 1, upgradeDb => {
       switch (upgradeDb.oldVersion) {
         case 0:
-          upgradeDb.createObjectStore('restaurants', {keyPath: 'id'});
+          upgradeDb.createObjectStore('restaurant-reviews', {keyPath: 'id'});
       }
     });
   }

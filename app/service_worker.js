@@ -1,6 +1,6 @@
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open('restaurants').then((cache) => {
+    caches.open('restaurant-reviews').then((cache) => {
       return cache.addAll([
         '/',
         '/index.html',
@@ -40,7 +40,7 @@ self.addEventListener('install', (event) => {
 
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.open('restaurants').then((cache) => {
+    caches.open('restaurant-reviews').then((cache) => {
       return cache.match(event.request).then((response) => {
         return response || fetch(event.request, { mode: 'no-cors' }).then((response) => {
           cache.put(event.request, response.clone());
