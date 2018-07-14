@@ -6,7 +6,7 @@ self.addEventListener('install', (event) => {
         '/index.html',
         '/restaurant.html',
         '/manifest.json',
-        '/js/main.js',
+        '/js/restaurants.js',
         '/js/restaurant_info.js',
         '/js/dbhelper.js',
         '/js/current_year.js',
