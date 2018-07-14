@@ -10,7 +10,7 @@ self.addEventListener('install', (event) => {
         '/js/restaurant_info.js',
         '/js/dbhelper.js',
         '/js/current_year.js',
-        '/js/restaurant_idb.js',
+        '/js/restaurants_db.js',
         '/js/service_worker_register.js',
         '/css/styles.css',
         '/img/1.jpg',

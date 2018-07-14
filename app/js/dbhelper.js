@@ -1,4 +1,4 @@
-import { RestaurantDb } from './restaurant_idb.js';
+import { RestaurantsDB } from './restaurants_db.js';
 /**
  * Common database helper functions.
  */
@@ -18,9 +18,9 @@ export class DBHelper {
    */
   static fetchRestaurants(callback) {
     // let cached = false;
-    // const restaurantDb = new RestaurantDb(1);
+    // const restaurantsDb = new RestaurantsDB(1);
 
-    // restaurantDb.selectRestaurants()
+    // restaurantsDb.selectRestaurants()
     //   .then((restaurants) => {
     //     if (restaurants.length && !cached) {
     //       cached = true
@@ -39,7 +39,7 @@ export class DBHelper {
       })
       .then(response => {
         const restaurants = response;
-        // restaurantDb.insertRestaurants(restaurants);
+        // restaurantsDb.insertRestaurants(restaurants);
         // if (!cached) {
           callback(null, restaurants);
         // }

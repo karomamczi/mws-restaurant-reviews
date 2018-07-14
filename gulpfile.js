@@ -46,7 +46,7 @@ gulp.task('sw', () => {
   .pipe(reload({stream: true}));
 })
 
-gulp.task('restaurantDb', () => {
+gulp.task('restaurantsDb', () => {
   const b = browserify({
     debug: true
   });
@@ -55,9 +55,9 @@ gulp.task('restaurantDb', () => {
     .transform('babelify', {
       presets: ['env']
     })
-    .require('app/js/restaurant_idb.js', { entry: true })
+    .require('app/js/restaurants_db.js', { entry: true })
     .bundle()
-    .pipe(source('restaurant_idb.js'))
+    .pipe(source('restaurants_db.js'))
     .pipe(gulp.dest('.tmp/js'));
 });
 
@@ -139,7 +139,7 @@ gulp.task('lint:test', () => {
     .pipe(gulp.dest('test/spec'));
 });
 
-gulp.task('html', ['css', 'js', 'restaurantDb', 'dbHelper', 'restaurants', 'restaurantInfo', 'sw'], () => {
+gulp.task('html', ['css', 'js', 'restaurantsDb', 'dbHelper', 'restaurants', 'restaurantInfo', 'sw'], () => {
   return gulp.src('app/*.html')
     .pipe($.useref({searchPath: ['.tmp', 'app', '.']}))
     .pipe($.if(/\.js$/, $.uglify({compress: {drop_console: true}})))
@@ -177,7 +177,7 @@ gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 gulp.task('serve', () => {
   runSequence(
     ['clean', 'wiredep'],
-    ['html', 'css', 'js', 'restaurantDb', 'dbHelper', 'restaurants', 'restaurantInfo', 'sw'],
+    ['html', 'css', 'js', 'restaurantsDb', 'dbHelper', 'restaurants', 'restaurantInfo', 'sw'],
     () => {
     browserSync.init({
       notify: false,
@@ -196,7 +196,7 @@ gulp.task('serve', () => {
     ]).on('change', reload);
 
     gulp.watch('app/css/**/*.css', ['html', 'css']);
-    gulp.watch('app/js/**/*.js', ['html', 'js', 'restaurantDb', 'dbHelper', 'restaurants', 'restaurantInfo']);
+    gulp.watch('app/js/**/*.js', ['html', 'js', 'restaurantsDb', 'dbHelper', 'restaurants', 'restaurantInfo']);
     gulp.watch('app/sw.js', ['sw']);
     gulp.watch('bower.json', ['wiredep']);
   });
