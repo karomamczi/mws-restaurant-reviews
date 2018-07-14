@@ -1,6 +1,6 @@
 import idb from 'idb';
 
-class RestaurantDb {
+export class RestaurantDb {
 
   constructor(version) {
     this.version = version;

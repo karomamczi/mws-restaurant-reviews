@@ -1,7 +1,8 @@
+import { RestaurantDb } from './restaurant_idb.js';
 /**
  * Common database helper functions.
  */
-class DBHelper {
+export class DBHelper {
 
   /**
    * Database URL.
@@ -16,7 +17,18 @@ class DBHelper {
    * Fetch all restaurants.
    */
   static fetchRestaurants(callback) {
-    fetch(`${DBHelper.DATABASE_URL}/restaurants`)
+    // let cached = false;
+    // const restaurantDb = new RestaurantDb(1);
+
+    // restaurantDb.selectRestaurants()
+    //   .then((restaurants) => {
+    //     if (restaurants.length && !cached) {
+    //       cached = true
+    //       return callback(null, restaurants)
+    //     }
+    //   });
+
+    fetch(`${this.DATABASE_URL}/restaurants`)
       .then(response => {
         if (response.status === 200) {
           return response.json();
@@ -27,7 +39,10 @@ class DBHelper {
       })
       .then(response => {
         const restaurants = response;
-        callback(null, restaurants);
+        // restaurantDb.insertRestaurants(restaurants);
+        // if (!cached) {
+          callback(null, restaurants);
+        // }
       });
   }
 
@@ -36,7 +51,7 @@ class DBHelper {
    */
   static fetchRestaurantById(id, callback) {
     // fetch all restaurants with proper error handling.
-    DBHelper.fetchRestaurants((error, restaurants) => {
+    this.fetchRestaurants((error, restaurants) => {
       if (error) {
         callback(error, null);
       } else {
@@ -55,7 +70,7 @@ class DBHelper {
    */
   static fetchRestaurantByCuisine(cuisine, callback) {
     // Fetch all restaurants  with proper error handling
-    DBHelper.fetchRestaurants((error, restaurants) => {
+    this.fetchRestaurants((error, restaurants) => {
       if (error) {
         callback(error, null);
       } else {
@@ -71,7 +86,7 @@ class DBHelper {
    */
   static fetchRestaurantByNeighborhood(neighborhood, callback) {
     // Fetch all restaurants
-    DBHelper.fetchRestaurants((error, restaurants) => {
+    this.fetchRestaurants((error, restaurants) => {
       if (error) {
         callback(error, null);
       } else {
@@ -87,7 +102,7 @@ class DBHelper {
    */
   static fetchRestaurantByCuisineAndNeighborhood(cuisine, neighborhood, callback) {
     // Fetch all restaurants
-    DBHelper.fetchRestaurants((error, restaurants) => {
+    this.fetchRestaurants((error, restaurants) => {
       if (error) {
         callback(error, null);
       } else {
@@ -108,7 +123,7 @@ class DBHelper {
    */
   static fetchNeighborhoods(callback) {
     // Fetch all restaurants
-    DBHelper.fetchRestaurants((error, restaurants) => {
+    this.fetchRestaurants((error, restaurants) => {
       if (error) {
         callback(error, null);
       } else {
@@ -126,7 +141,7 @@ class DBHelper {
    */
   static fetchCuisines(callback) {
     // Fetch all restaurants
-    DBHelper.fetchRestaurants((error, restaurants) => {
+    this.fetchRestaurants((error, restaurants) => {
       if (error) {
         callback(error, null);
       } else {
@@ -161,7 +176,7 @@ class DBHelper {
     const marker = new google.maps.Marker({
       position: restaurant.latlng,
       title: restaurant.name,
-      url: DBHelper.urlForRestaurant(restaurant),
+      url: this.urlForRestaurant(restaurant),
       map: map,
       animation: google.maps.Animation.DROP}
     );
