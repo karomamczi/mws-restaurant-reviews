@@ -17,16 +17,16 @@ export class DBHelper {
    * Fetch all restaurants.
    */
   static fetchRestaurants(callback) {
-    // let cached = false;
-    // const restaurantsDb = new RestaurantsDB(1);
+    let cached = false;
+    const restaurantsDb = new RestaurantsDB(1);
 
-    // restaurantsDb.selectRestaurants()
-    //   .then((restaurants) => {
-    //     if (restaurants.length && !cached) {
-    //       cached = true
-    //       return callback(null, restaurants)
-    //     }
-    //   });
+    restaurantsDb.selectRestaurants()
+      .then((restaurants) => {
+        if (restaurants.length && !cached) {
+          cached = true
+          return callback(null, restaurants)
+        }
+      });
 
     fetch(`${this.DATABASE_URL}/restaurants`)
       .then(response => {
@@ -39,10 +39,10 @@ export class DBHelper {
       })
       .then(response => {
         const restaurants = response;
-        // restaurantsDb.insertRestaurants(restaurants);
-        // if (!cached) {
+        restaurantsDb.insertRestaurants(restaurants);
+        if (!cached) {
           callback(null, restaurants);
-        // }
+        }
       });
   }
 
