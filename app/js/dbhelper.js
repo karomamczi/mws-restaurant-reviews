@@ -25,23 +25,21 @@ export class DBHelper {
         if (restaurants.length && !cached) {
           cached = true
           return callback(null, restaurants)
-        }
-      });
-
-    fetch(`${this.DATABASE_URL}/restaurants`)
-      .then(response => {
-        if (response.status === 200) {
-          return response.json();
-        } else { // Oops!. Got an error from server.
-          const error = (`Request failed. Returned status of ${response.status}`);
-          callback(error, null);
-        }
-      })
-      .then(response => {
-        const restaurants = response;
-        restaurantsDb.insertRestaurants(restaurants);
-        if (!cached) {
-          callback(null, restaurants);
+        } else {
+          fetch(`${this.DATABASE_URL}/restaurants`)
+          .then(response => {
+            if (response.status === 200) {
+              return response.json();
+            } else { // Oops!. Got an error from server.
+              const error = (`Request failed. Returned status of ${response.status}`);
+              callback(error, null);
+            }
+          })
+          .then(response => {
+            const restaurants = response;
+            restaurantsDb.insertRestaurants(restaurants);
+            callback(null, restaurants);
+          });
         }
       });
   }
