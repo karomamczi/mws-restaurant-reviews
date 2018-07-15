@@ -9,6 +9,7 @@ const babelify = require('babelify');
 const source = require('vinyl-source-stream');
 const cleanCSS = require('gulp-clean-css');
 const buffer = require('vinyl-buffer');
+const gzip = require('gulp-gzip');
 
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
@@ -20,6 +21,7 @@ gulp.task('css', () => {
     .pipe($.if(dev, $.sourcemaps.init()))
       .pipe($.autoprefixer({browsers: ['> 1%', 'last 2 versions', 'Firefox ESR']}))
       .pipe(cleanCSS())
+      .pipe(gzip())
     .pipe($.if(dev, $.sourcemaps.write()))
     .pipe(gulp.dest('.tmp/css'))
     .pipe(reload({stream: true}));
@@ -33,6 +35,7 @@ gulp.task('js', () => {
           presets: ['env']
       }))
       .pipe($.uglify())
+      .pipe(gzip())
     .pipe($.if(dev, $.sourcemaps.write('.')))
     .pipe(gulp.dest('.tmp/js'))
     .pipe(reload({stream: true}));
@@ -46,6 +49,7 @@ gulp.task('sw', () => {
         presets: ['env']
     }))
     .pipe($.uglify())
+    .pipe(gzip())
   .pipe($.if(dev, $.sourcemaps.write('.')))
   .pipe(gulp.dest('.tmp/'))
   .pipe(reload({stream: true}));
@@ -136,7 +140,7 @@ gulp.task('lint:test', () => {
     .pipe(gulp.dest('test/spec'));
 });
 
-gulp.task('html', ['css', 'js', 'restaurantsDb', 'dbHelper', 'restaurants', 'restaurantInfo', 'sw'], () => {
+gulp.task('html', ['css', 'js', 'restaurantsDb', 'dbHelper', 'restaurants', 'restaurantInfo', 'sw', 'img'], () => {
   return gulp.src('app/*.html')
     .pipe($.useref({searchPath: ['.tmp', 'app', '.']}))
     .pipe($.if(/\.js$/, $.uglify({compress: {drop_console: true}})))
@@ -157,7 +161,7 @@ gulp.task('html', ['css', 'js', 'restaurantsDb', 'dbHelper', 'restaurants', 'res
 gulp.task('img', () => {
   return gulp.src('app/img/**/*')
     .pipe($.cache($.imagemin()))
-    .pipe(gulp.dest('dist/img'));
+    .pipe(gulp.dest('.tmp/img'));
 });
 
 gulp.task('extras', () => {
@@ -174,7 +178,7 @@ gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 gulp.task('serve', () => {
   runSequence(
     ['clean', 'wiredep'],
-    ['html', 'css', 'js', 'restaurantsDb', 'dbHelper', 'restaurants', 'restaurantInfo', 'sw'],
+    ['html', 'css', 'js', 'restaurantsDb', 'dbHelper', 'restaurants', 'restaurantInfo', 'sw', 'img'],
     () => {
     browserSync.init({
       notify: false,

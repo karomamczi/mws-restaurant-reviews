@@ -162,9 +162,19 @@ export class DBHelper {
   /**
    * Restaurant image URL.
    */
-  static imageUrlForRestaurant(restaurant) {
-    const extention = 'jpg';
-    return restaurant.photograph ? `/img/${restaurant.photograph}.${extention}` : `/img/${restaurant.id}.${extention}`
+  static imageUrlForRestaurant(restaurant, attribute) {
+    return restaurant.photograph ? this.getResponsiveImageUrl(restaurant.photograph, attribute) : this.getResponsiveImageUrl(restaurant.id, attribute);
+  }
+
+  static getResponsiveImageUrl(id, attribute) {
+    switch (attribute) {
+      case 'src':
+        return `/img/${id}_400.jpg`;
+      case 'srcset':
+        return `/img/${id}_400.jpg 400w, /img/${id}_600.jpg 600w`;
+      default:
+        return `/img/${id}_400.jpg`;
+    }
   }
 
   /**

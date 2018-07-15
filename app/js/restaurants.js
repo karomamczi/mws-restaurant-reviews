@@ -150,7 +150,9 @@ class Restaurants {
     const image = document.createElement('img');
     image.className = 'restaurant-img';
     image.alt = `${restaurant.name} Restaurant`;
-    image.src = DBHelper.imageUrlForRestaurant(restaurant);
+    image.src = DBHelper.imageUrlForRestaurant(restaurant, 'src');
+    image.srcset = DBHelper.imageUrlForRestaurant(restaurant, 'srcset');
+    image.sizes = '(max-width: 684px) 100vw, 50vw';
     li.append(image);
 
     const name = document.createElement('h3');

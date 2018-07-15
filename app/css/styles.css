@@ -259,8 +259,13 @@ nav h1 a {
   padding-left: 2rem;
 }
 #restaurant-img {
-  width: 90%;
-  padding-left: 2rem;
+  transition: width 0.5s;
+  width: 50vw;
+}
+@media screen and (max-width: 684px) {
+  #restaurant-img {
+    width: 100vw;
+  }
 }
 #restaurant-address {
   font-size: 2rem;

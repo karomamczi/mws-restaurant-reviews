@@ -73,7 +73,9 @@ class RestaurantInfo {
     const image = document.getElementById('restaurant-img');
     image.className = 'restaurant-img'
     image.alt = `${restaurant.name} Restaurant`;
-    image.src = DBHelper.imageUrlForRestaurant(restaurant);
+    image.src = DBHelper.imageUrlForRestaurant(restaurant, 'src');
+    image.srcset = DBHelper.imageUrlForRestaurant(restaurant, 'srcset');
+    image.sizes = '(max-width: 684px) 100vw, 50vw';
 
     const cuisine = document.getElementById('restaurant-cuisine');
     cuisine.innerHTML = restaurant.cuisine_type;
