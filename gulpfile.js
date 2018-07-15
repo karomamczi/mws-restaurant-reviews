@@ -7,6 +7,8 @@ const runSequence = require('run-sequence');
 const browserify = require('browserify');
 const babelify = require('babelify');
 const source = require('vinyl-source-stream');
+const cleanCSS = require('gulp-clean-css');
+const buffer = require('vinyl-buffer');
 
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
@@ -16,7 +18,8 @@ let dev = true;
 gulp.task('css', () => {
   return gulp.src('app/css/*.css')
     .pipe($.if(dev, $.sourcemaps.init()))
-    .pipe($.autoprefixer({browsers: ['> 1%', 'last 2 versions', 'Firefox ESR']}))
+      .pipe($.autoprefixer({browsers: ['> 1%', 'last 2 versions', 'Firefox ESR']}))
+      .pipe(cleanCSS())
     .pipe($.if(dev, $.sourcemaps.write()))
     .pipe(gulp.dest('.tmp/css'))
     .pipe(reload({stream: true}));
@@ -26,9 +29,10 @@ gulp.task('js', () => {
   return gulp.src(['app/js/**/current_year.js', 'app/js/**/service_worker_register.js'])
     .pipe($.plumber())
     .pipe($.if(dev, $.sourcemaps.init()))
-    .pipe($.babel({
-        presets: ['env']
-    }))
+      .pipe($.babel({
+          presets: ['env']
+      }))
+      .pipe($.uglify())
     .pipe($.if(dev, $.sourcemaps.write('.')))
     .pipe(gulp.dest('.tmp/js'))
     .pipe(reload({stream: true}));
@@ -38,9 +42,10 @@ gulp.task('sw', () => {
   return gulp.src('app/service_worker.js')
   .pipe($.plumber())
   .pipe($.if(dev, $.sourcemaps.init()))
-  .pipe($.babel({
-      presets: ['env']
-  }))
+    .pipe($.babel({
+        presets: ['env']
+    }))
+    .pipe($.uglify())
   .pipe($.if(dev, $.sourcemaps.write('.')))
   .pipe(gulp.dest('.tmp/'))
   .pipe(reload({stream: true}));
@@ -58,6 +63,8 @@ gulp.task('restaurantsDb', () => {
     .require('app/js/restaurants_db.js', { entry: true })
     .bundle()
     .pipe(source('restaurants_db.js'))
+    .pipe(buffer())
+    .pipe($.uglify())
     .pipe(gulp.dest('.tmp/js'));
 });
 
@@ -73,16 +80,10 @@ gulp.task('dbHelper', () => {
     .require('app/js/dbhelper.js', { entry: true })
     .bundle()
     .pipe(source('dbhelper.js'))
+    .pipe(buffer())
+    .pipe($.uglify())
     .pipe(gulp.dest('.tmp/js'));
 });
-
-function lint(files) {
-  return gulp.src(files)
-    .pipe($.eslint({ fix: true }))
-    .pipe(reload({stream: true, once: true}))
-    .pipe($.eslint.format())
-    .pipe($.if(!browserSync.active, $.eslint.failAfterError()));
-}
 
 gulp.task('restaurants', () => {
   const b = browserify({
@@ -96,6 +97,8 @@ gulp.task('restaurants', () => {
     .require('app/js/restaurants.js', { entry: true })
     .bundle()
     .pipe(source('restaurants.js'))
+    .pipe(buffer())
+    .pipe($.uglify())
     .pipe(gulp.dest('.tmp/js'));
 });
 
@@ -111,16 +114,10 @@ gulp.task('restaurantInfo', () => {
     .require('app/js/restaurant_info.js', { entry: true })
     .bundle()
     .pipe(source('restaurant_info.js'))
+    .pipe(buffer())
+    .pipe($.uglify())
     .pipe(gulp.dest('.tmp/js'));
 });
-
-function lint(files) {
-  return gulp.src(files)
-    .pipe($.eslint({ fix: true }))
-    .pipe(reload({stream: true, once: true}))
-    .pipe($.eslint.format())
-    .pipe($.if(!browserSync.active, $.eslint.failAfterError()));
-}
 
 function lint(files) {
   return gulp.src(files)
