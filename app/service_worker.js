@@ -1,6 +1,8 @@
+const cacheVersion = 'restaurant-reviews';
+
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open('restaurant-reviews').then((cache) => {
+    caches.open(cacheVersion).then((cache) => {
       return cache.addAll([
         '/',
         '/index.html',
@@ -37,16 +39,39 @@ self.addEventListener('install', (event) => {
   );
 });
 
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) => {
+      return Promise.all(keys.map((key, i) => {
+        if (key !== cacheVersion) {
+          return caches.delete(keys[i]);
+        }
+      }));
+    })
+  )
+});
 
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.open('restaurant-reviews').then((cache) => {
-      return cache.match(event.request).then((response) => {
-        return response || fetch(event.request, { mode: 'no-cors' }).then((response) => {
-          cache.put(event.request, response.clone());
-          return response;
-        });
-      })
+    caches.match(event.request).then((response) => {
+      if (response) {
+        return response;
+      }
+      requestBackend(event);
     })
-  );
+  )
 });
+
+const requestBackend = (event) => {
+  const url = event.request.clone();
+  return fetch(url).then((response) => {
+    if (!response || response.status !== 200 || response.type !== 'basic') {
+      return response;
+    }
+    const responseToCache = response.clone();
+    caches.open(cacheVersion).then((cache) => {
+      cache.put(event.request, responseToCache);
+    });
+    return response;
+  })
+};
