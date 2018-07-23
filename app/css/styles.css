@@ -1,8 +1,7 @@
 @charset "utf-8";
-@import url('https://fonts.googleapis.com/css?family=Montserrat');
 /* CSS Document */
 body, td, th, p {
-	font-family: 'Montserrat', sans-serif;
+	font-family: 'Arial', sans-serif;
 	font-size: 1rem;
 	color: #333333;
 	line-height: 1.5;
@@ -13,7 +12,7 @@ body {
 	position: relative;
 }
 ul, li {
-	font-family: 'Montserrat', sans-serif;
+	font-family: 'Arial', sans-serif;
 	font-size: 1rem;
   color: #333333;
 }
@@ -29,7 +28,7 @@ a img {
 	border: none 0 #ffffff;
 }
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Arial', sans-serif;
 }
 article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
 	display: block;
@@ -150,7 +149,7 @@ nav h1 a {
 .filter-options select {
   background-color: #ffffff;
   border: 0.1rem solid #ffffff;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Arial', sans-serif;
   font-size: 0.95rem;
   height: 2.5rem;
   letter-spacing: 0;
@@ -172,7 +171,7 @@ nav h1 a {
 #restaurants-list li {
   background-color: #ffffff;
   border: 0.1rem solid #cccccc;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Arial', sans-serif;
   margin: 1.5rem;
   min-height: 15rem;
   padding: 0 2rem 2rem;
@@ -195,7 +194,7 @@ nav h1 a {
 }
 #restaurants-list li h3 {
   color: #b15f00;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Arial', sans-serif;
   font-size: 1.1rem;
   font-weight: 200;
   letter-spacing: 0;
@@ -275,7 +274,7 @@ nav h1 a {
   padding-left: 2rem;
 }
 #restaurant-cuisine {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Arial', sans-serif;
   background-color: #333333;
   color: #dddddd;
   font-size: 1.2;
