@@ -18,7 +18,7 @@ export class DBHelper {
    */
   static fetchRestaurants(callback) {
     let cached = false;
-    const restaurantsDb = new RestaurantsDB(1);
+    const restaurantsDb = new RestaurantsDB(2);
 
     restaurantsDb.selectRestaurants()
       .then((restaurants) => {

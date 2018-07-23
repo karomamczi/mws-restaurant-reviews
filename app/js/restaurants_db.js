@@ -11,6 +11,9 @@ export class RestaurantsDB {
       switch (upgradeDb.oldVersion) {
         case 0:
           upgradeDb.createObjectStore(this.restaurantsTable, { keyPath: 'id' }).createIndex('is_favorite', 'is_favorite');
+        case 1:
+          upgradeDb.createObjectStore('reviews', {keyPath: 'id'}).createIndex('restaurant_id', 'restaurant_id');
+          upgradeDb.createObjectStore('pending-reviews', {autoIncrement: true, keyPath: 'id'}).createIndex('restaurant_id', 'restaurant_id');
       }
     });
   }
