@@ -43,6 +43,18 @@ export class RestaurantsDB {
     });
   }
 
+  selectRestaurantById(id) {
+    return this.dbPromise.then((db) => {
+      if (!db) return;
+      return db
+        .transaction(this.restaurantsTable)
+        .objectStore(this.restaurantsTable)
+        .get(id);
+    }).catch((error) => {
+      console.log('Could not select data by id from database with: ', error);
+    });
+  }
+
 }
 
 

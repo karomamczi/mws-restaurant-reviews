@@ -14,13 +14,19 @@ export class DBHelper {
   }
 
   /**
+   * Reference to RestaurantsDB.
+   */
+  static get restaurantsDb() {
+    return new RestaurantsDB(2);
+  }
+
+  /**
    * Fetch all restaurants.
    */
   static fetchRestaurants(callback) {
     let cached = false;
-    const restaurantsDb = new RestaurantsDB(2);
 
-    restaurantsDb.selectRestaurants()
+    this.restaurantsDb.selectRestaurants()
       .then((restaurants) => {
         if (restaurants.length && !cached) {
           cached = true
@@ -37,7 +43,7 @@ export class DBHelper {
           })
           .then(response => {
             const restaurants = response;
-            restaurantsDb.insertRestaurants(restaurants);
+            this.restaurantsDb.insertRestaurants(restaurants);
             callback(null, restaurants);
           });
         }
@@ -48,19 +54,29 @@ export class DBHelper {
    * Fetch a restaurant by its ID.
    */
   static fetchRestaurantById(id, callback) {
-    // fetch all restaurants with proper error handling.
-    this.fetchRestaurants((error, restaurants) => {
-      if (error) {
-        callback(error, null);
-      } else {
-        const restaurant = restaurants.find(r => r.id == id);
-        if (restaurant) { // Got the restaurant
-          callback(null, restaurant);
-        } else { // Restaurant does not exist in the database
-          callback('Restaurant does not exist', null);
+    let cached = false;
+
+    this.restaurantsDb.selectRestaurantById()
+      .then((restaurant) => {
+        if (restaurant && !cached) {
+          cached = true
+          return callback(null, restaurant)
+        } else {
+          fetch(`${this.DATABASE_URL}/restaurants/${id}`)
+          .then(response => {
+            if (response.status === 200) {
+              return response.json();
+            } else { // Oops!. Got an error from server.
+              const error = 'Restaurant does not exist';
+              callback(error, null);
+            }
+          })
+          .then(response => {
+            const restaurant = response;
+            callback(null, restaurant);
+          });
         }
-      }
-    });
+      });
   }
 
   /**
