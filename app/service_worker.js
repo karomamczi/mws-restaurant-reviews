@@ -65,19 +65,14 @@ self.addEventListener('activate', function(event) {
 
 
 self.addEventListener('fetch', (event) => {
-  console.log('url', event.request.url);
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request)
-        .then(response => {
-          if (response.status === 200) {
-            console.log(response.status)
-            const responseToCache = response.clone();
-            caches.open(cacheVersion).then((cache) => {
-              cache.put(event.request, responseToCache);
-            });
-          }
+    caches.open(cacheVersion).then((cache) => {
+      return cache.match(event.request).then((response) => {
+        return response || fetch(event.request).then((response) => {
+          cache.put(event.request, response.clone());
+          return response;
         });
+      });
     })
-  )
+  );
 });
