@@ -19,25 +19,25 @@ export class RestaurantsDB {
     });
   }
 
-  selectRestaurants() {
+  selectObjects(table) {
     return this.dbPromise.then((db) => {
       if (!db) return;
       return db
-        .transaction(this.restaurantsTable)
-        .objectStore(this.restaurantsTable)
+        .transaction(table)
+        .objectStore(table)
         .getAll();
     }).catch((error) => {
       console.log('Could not select data from database with: ', error);
     });
   }
 
-  insertRestaurants(restaurants) {
+  insertObjects(table, objects) {
     return this.dbPromise.then((db) => {
-      restaurants.forEach((restaurant) => {
+      objects.forEach((object) => {
         return db
-          .transaction(this.restaurantsTable, this.readWriteMode)
-          .objectStore(this.restaurantsTable)
-          .put(restaurant)
+          .transaction(table, this.readWriteMode)
+          .objectStore(table)
+          .put(object)
       });
     }).catch((error) => {
       console.log('Could not insert data into database with: ', error);
@@ -53,31 +53,6 @@ export class RestaurantsDB {
         .get(id);
     }).catch((error) => {
       console.log('Could not select data by id from database with: ', error);
-    });
-  }
-
-  selectReviews() {
-    return this.dbPromise.then((db) => {
-      if (!db) return;
-      return db
-        .transaction(this.reviewsTable)
-        .objectStore(this.reviewsTable)
-        .getAll();
-    }).catch((error) => {
-      console.log('Could not select data from database with: ', error);
-    });
-  }
-
-  insertReviews(reviews) {
-    return this.dbPromise.then((db) => {
-      reviews.forEach((review) => {
-        return db
-          .transaction(this.reviewsTable, this.readWriteMode)
-          .objectStore(this.reviewsTable)
-          .put(review)
-      });
-    }).catch((error) => {
-      console.log('Could not insert data into database with: ', error);
     });
   }
 

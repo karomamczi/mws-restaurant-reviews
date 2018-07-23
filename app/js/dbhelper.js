@@ -26,7 +26,7 @@ export class DBHelper {
   static fetchRestaurants(callback) {
     let cached = false;
 
-    this.restaurantsDb.selectRestaurants()
+    this.restaurantsDb.selectObjects(this.restaurantsDb.restaurantsTable)
       .then((restaurants) => {
         if (restaurants.length && !cached) {
           cached = true
@@ -43,7 +43,7 @@ export class DBHelper {
           })
           .then(response => {
             const restaurants = response;
-            this.restaurantsDb.insertRestaurants(restaurants);
+            this.restaurantsDb.insertObjects(this.restaurantsDb.restaurantsTable, restaurants);
             callback(null, restaurants);
           });
         }
@@ -87,7 +87,7 @@ export class DBHelper {
   static fetchReviews() {
     let cached = false;
 
-    this.restaurantsDb.selectReviews()
+    this.restaurantsDb.selectObjects(this.restaurantsDb.reviewsTable)
       .then((reviews) => {
         if (reviews.length && !cached) {
           cached = true
@@ -103,7 +103,7 @@ export class DBHelper {
           })
           .then(response => {
             const reviews = response;
-            this.restaurantsDb.insertReviews(reviews);
+            this.restaurantsDb.insertObjects(this.restaurantsDb.reviewsTable, reviews);
           });
         }
       });
