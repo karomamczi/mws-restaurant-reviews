@@ -48,6 +48,8 @@ export class DBHelper {
           });
         }
       });
+
+    this.fetchReviews();
   }
 
   /**
@@ -80,6 +82,34 @@ export class DBHelper {
   }
 
   /**
+   * Fetch reviews.
+   */
+  static fetchReviews() {
+    let cached = false;
+
+    this.restaurantsDb.selectReviews()
+      .then((reviews) => {
+        if (reviews.length && !cached) {
+          cached = true
+          return;
+        } else {
+          fetch(`${this.DATABASE_URL}reviews`)
+          .then(response => {
+            if (response.status === 200) {
+              return response.json();
+            } else { // Oops!. Got an error from server.
+              console.error = (`Request failed. Returned status of ${response.status}`);
+            }
+          })
+          .then(response => {
+            const reviews = response;
+            this.restaurantsDb.insertReviews(reviews);
+          });
+        }
+      });
+  }
+
+  /**
    * Fetch reviews based on restaurant's ID.
    */
   static fetchReviewsByRestaurantId(id, callback) {
@@ -102,7 +132,6 @@ export class DBHelper {
           })
           .then(response => {
             const reviews = response;
-            this.restaurantsDb.insertReviews(reviews);
             callback(null, reviews);
           });
         }

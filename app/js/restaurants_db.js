@@ -56,14 +56,13 @@ export class RestaurantsDB {
     });
   }
 
-  selectReviewsByRestaurantId(id) {
+  selectReviews() {
     return this.dbPromise.then((db) => {
       if (!db) return;
       return db
         .transaction(this.reviewsTable)
         .objectStore(this.reviewsTable)
-        .index('restaurant_id')
-        .getAll(id)
+        .getAll();
     }).catch((error) => {
       console.log('Could not select data from database with: ', error);
     });
@@ -79,6 +78,19 @@ export class RestaurantsDB {
       });
     }).catch((error) => {
       console.log('Could not insert data into database with: ', error);
+    });
+  }
+
+  selectReviewsByRestaurantId(id) {
+    return this.dbPromise.then((db) => {
+      if (!db) return;
+      return db
+        .transaction(this.reviewsTable)
+        .objectStore(this.reviewsTable)
+        .index('restaurant_id')
+        .getAll(id)
+    }).catch((error) => {
+      console.log('Could not select data from database with: ', error);
     });
   }
 
