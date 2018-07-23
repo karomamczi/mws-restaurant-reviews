@@ -1,6 +1,11 @@
 import { DBHelper } from './dbhelper.js';
 
 /**
+ * External property initialization
+ */
+let map;
+
+/**
  * Init map as soon as the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', () => {
@@ -11,7 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
 class RestaurantInfo {
   constructor() {
     this.restaurant;
-    this.map;
   }
 
   /**
@@ -23,13 +27,13 @@ class RestaurantInfo {
         if (error) { // Got an error!
           console.error(error);
         } else {
-          this.map = new google.maps.Map(document.getElementById('map'), {
+          map = new google.maps.Map(document.getElementById('map'), {
             zoom: 16,
             center: restaurant.latlng,
             scrollwheel: false
           });
           this.fillBreadcrumb();
-          DBHelper.mapMarkerForRestaurant(this.restaurant, this.map);
+          DBHelper.mapMarkerForRestaurant(this.restaurant, map);
         }
       });
     }

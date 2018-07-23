@@ -1,6 +1,12 @@
 import { DBHelper } from './dbhelper.js';
 
 /**
+ * External property initialization
+ */
+let markers = [];
+let map;
+
+/**
  * Fetch neighborhoods and cuisines, and init map as soon as the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', () => {
@@ -10,13 +16,21 @@ document.addEventListener('DOMContentLoaded', () => {
   restaurants.initMap();
 });
 
+document.getElementById('neighborhoods-select').addEventListener('change', () => {
+  const restaurants = new Restaurants();
+  restaurants.updateRestaurants();
+});
+
+document.getElementById('cuisines-select').addEventListener('change', () => {
+  const restaurants = new Restaurants();
+  restaurants.updateRestaurants();
+});
+
 class Restaurants {
   constructor() {
     this.restaurants;
     this.neighborhoods;
     this.cuisines;
-    this.map = map;
-    this.markers = [];
   }
 
   /**
@@ -28,7 +42,7 @@ class Restaurants {
         lat: 40.722216,
         lng: -73.987501
       };
-      this.map = new google.maps.Map(document.getElementById('map'), {
+      map = new google.maps.Map(document.getElementById('map'), {
         zoom: 12,
         center: loc,
         scrollwheel: false
@@ -125,8 +139,8 @@ class Restaurants {
     ul.innerHTML = '';
 
     // Remove all map markers
-    this.markers.forEach(m => m.setMap(null));
-    this.markers = [];
+    markers.forEach(m => m.setMap(null));
+    markers = [];
     this.restaurants = restaurants;
   }
 
@@ -181,11 +195,11 @@ class Restaurants {
   addMarkersToMap(restaurants = this.restaurants) {
     restaurants.forEach(restaurant => {
       // Add marker to the map
-      const marker = DBHelper.mapMarkerForRestaurant(restaurant, this.map);
+      const marker = DBHelper.mapMarkerForRestaurant(restaurant, map);
       google.maps.event.addListener(marker, 'click', () => {
         window.location.href = marker.url
       });
-      this.markers.push(marker);
+      markers.push(marker);
     });
   }
 }
