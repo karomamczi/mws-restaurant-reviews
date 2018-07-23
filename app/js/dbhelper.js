@@ -10,7 +10,7 @@ export class DBHelper {
    */
   static get DATABASE_URL() {
     const port = 1337 // Change this to your server port
-    return `http://localhost:${port}`;
+    return `http://localhost:${port}/`;
   }
 
   /**
@@ -32,7 +32,7 @@ export class DBHelper {
           cached = true
           return callback(null, restaurants)
         } else {
-          fetch(`${this.DATABASE_URL}/restaurants`)
+          fetch(`${this.DATABASE_URL}restaurants`)
           .then(response => {
             if (response.status === 200) {
               return response.json();
@@ -62,7 +62,7 @@ export class DBHelper {
           cached = true
           return callback(null, restaurant)
         } else {
-          fetch(`${this.DATABASE_URL}/restaurants/${id}`)
+          fetch(`${this.DATABASE_URL}restaurants/${id}`)
           .then(response => {
             if (response.status === 200) {
               return response.json();
