@@ -111,23 +111,28 @@ class RestaurantInfo {
   /**
    * Create all reviews HTML and add them to the webpage.
    */
-  fillReviewsHTML(reviews = this.restaurant.reviews) {
+  fillReviewsHTML() {
     const container = document.getElementById('reviews-container');
     const title = document.createElement('h3');
     title.innerHTML = 'Reviews';
     container.appendChild(title);
 
-    if (!reviews) {
-      const noReviews = document.createElement('p');
-      noReviews.innerHTML = 'No reviews yet!';
-      container.appendChild(noReviews);
-      return;
-    }
-    const ul = document.getElementById('reviews-list');
-    reviews.forEach(review => {
-      ul.appendChild(this.createReviewHTML(review));
+    DBHelper.fetchReviewsByRestaurantId(this.restaurant.id, (error, reviews) => {
+      if (error) {
+        const noReviews = document.createElement('p');
+        noReviews.innerHTML = 'No reviews yet!';
+        container.appendChild(noReviews);
+        return;
+      } else {
+        const ul = document.getElementById('reviews-list');
+        reviews.forEach(review => {
+          ul.appendChild(this.createReviewHTML(review));
+        });
+        container.appendChild(ul);
+      }
+
     });
-    container.appendChild(ul);
+
   }
 
   /**

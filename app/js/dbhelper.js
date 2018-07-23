@@ -56,7 +56,7 @@ export class DBHelper {
   static fetchRestaurantById(id, callback) {
     let cached = false;
 
-    this.restaurantsDb.selectRestaurantById()
+    this.restaurantsDb.selectRestaurantById(id)
       .then((restaurant) => {
         if (restaurant && !cached) {
           cached = true
@@ -74,6 +74,36 @@ export class DBHelper {
           .then(response => {
             const restaurant = response;
             callback(null, restaurant);
+          });
+        }
+      });
+  }
+
+  /**
+   * Fetch reviews based on restaurant's ID.
+   */
+  static fetchReviewsByRestaurantId(id, callback) {
+    let cached = false;
+
+    this.restaurantsDb.selectReviewsByRestaurantId(id)
+      .then((reviews) => {
+        if (reviews.length && !cached) {
+          cached = true
+          return callback(null, reviews)
+        } else {
+          fetch(`${this.DATABASE_URL}reviews/?restaurant_id=${id}`)
+          .then(response => {
+            if (response.status === 200) {
+              return response.json();
+            } else { // Oops!. Got an error from server.
+              const error = (`Request failed. Returned status of ${response.status}`);
+              callback(error, null);
+            }
+          })
+          .then(response => {
+            const reviews = response;
+            this.restaurantsDb.insertReviews(reviews);
+            callback(null, reviews);
           });
         }
       });
