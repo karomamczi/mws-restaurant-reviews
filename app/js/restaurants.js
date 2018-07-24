@@ -193,11 +193,8 @@ class Restaurants {
     const isFavorite = this.handleValueFromBackend(restaurant.is_favorite);
     favorite.onclick = () => {
       const toggledFavorite = !this.handleValueFromBackend(restaurant.is_favorite);
-      console.log(restaurant.id, toggledFavorite);
       DBHelper.updateFavoriteStatus(restaurant.id, toggledFavorite);
-      console.log('przed', restaurant.is_favorite);
       restaurant.is_favorite = toggledFavorite;
-      console.log('po', restaurant.is_favorite);
       this.changeFavoriteElementClass(favorite, toggledFavorite);
     }
     this.changeFavoriteElementClass(favorite, isFavorite);
