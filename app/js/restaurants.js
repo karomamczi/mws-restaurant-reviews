@@ -186,7 +186,58 @@ class Restaurants {
     more.href = DBHelper.urlForRestaurant(restaurant);
     li.append(more)
 
+    const favorite = document.createElement('button');
+    favorite.innerHTML = '&#9829;';
+    favorite.classList.add('fav-btn');
+    favorite.setAttribute('type', 'button');
+    const isFavorite = this.handleValueFromBackend(restaurant.is_favorite);
+    favorite.onclick = () => {
+      const toggledFavorite = !this.handleValueFromBackend(restaurant.is_favorite);
+      console.log(restaurant.id, toggledFavorite);
+      DBHelper.updateFavoriteStatus(restaurant.id, toggledFavorite);
+      console.log('przed', restaurant.is_favorite);
+      restaurant.is_favorite = toggledFavorite;
+      console.log('po', restaurant.is_favorite);
+      this.changeFavoriteElementClass(favorite, toggledFavorite);
+    }
+    this.changeFavoriteElementClass(favorite, isFavorite);
+    li.append(favorite);
+
     return li
+  }
+
+  /**
+   * Handle value of is_favorite property from backend.
+   * It may be returned either boolean or string.
+   */
+  handleValueFromBackend(isFavorite) {
+    switch(isFavorite) {
+      case 'true':
+        return true;
+      case 'false':
+        return false;
+      default:
+        return isFavorite;
+    }
+  }
+
+  /**
+   * Handle styles and aria-label attribute for favorite button
+   */
+  changeFavoriteElementClass(element, isFavorite) {
+    if (!isFavorite) {
+      element.classList.remove('is-favorite');
+      element.classList.add('is-not-favorite');
+      const addFromFavsInfo = 'Add to favorite restaurants.';
+      element.setAttribute('aria-label', addFromFavsInfo);
+      element.setAttribute('title', addFromFavsInfo);
+    } else {
+      const removeFromFavsInfo = 'Remove from favorite restaurants.';
+      element.classList.remove('is-not-favorite');
+      element.classList.add('is-favorite');
+      element.setAttribute('aria-label', removeFromFavsInfo);
+      element.setAttribute('title', removeFromFavsInfo);
+    }
   }
 
   /**

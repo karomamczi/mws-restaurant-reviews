@@ -11,7 +11,7 @@ export class RestaurantsDB {
     this.dbPromise = idb.open(this.dbName, this.version, upgradeDb => {
       switch (upgradeDb.oldVersion) {
         case 0:
-          upgradeDb.createObjectStore(this.restaurantsTable, { keyPath: 'id' }).createIndex('is_favorite', 'is_favorite');
+          upgradeDb.createObjectStore(this.restaurantsTable, { keyPath: 'id' });
         case 1:
           upgradeDb.createObjectStore(this.reviewsTable, {keyPath: 'id'}).createIndex('restaurant_id', 'restaurant_id');
           upgradeDb.createObjectStore('pending-reviews', {autoIncrement: true, keyPath: 'id'}).createIndex('restaurant_id', 'restaurant_id');
@@ -66,6 +66,20 @@ export class RestaurantsDB {
         .getAll(id)
     }).catch((error) => {
       console.log('Could not select data from database with: ', error);
+    });
+  }
+
+  updateIsFavoriteProperty(id, isFavorite) {
+    return this.dbPromise.then((db) => {
+      if (!db) return;
+      const restaurantsStore = db
+        .transaction(this.restaurantsTable, this.readWriteMode)
+        .objectStore(this.restaurantsTable);
+      restaurantsStore.get(id)
+        .then((restaurant) => {
+          restaurant.is_favorite = isFavorite;
+          restaurantsStore.put(restaurant);
+        });
     });
   }
 

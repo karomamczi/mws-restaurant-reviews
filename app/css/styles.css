@@ -211,12 +211,11 @@ nav h1 a {
   color: #ffffff;
   display: inline-block;
   font-size: 0.8rem;
-  margin: 1.5rem 0 0;
-  padding: 0.6rem 2rem 0.6rem;
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
   border-radius: 0.25rem;
+  padding: 0.5rem 0.6rem 0.5rem 0.6rem;
 }
 #restaurants-list li a:hover,
 #restaurants-list li a:focus {
@@ -389,4 +388,21 @@ nav h1 a {
   .reviewer-name-date {
     height: 6rem;
   }
+}
+/* ====================== Favorite button ====================== */
+.fav-btn {
+  cursor: pointer;
+  border-radius: 2rem;
+  border: none;
+  outline: none;
+  height: 2.3rem;
+  width: 2.3rem;
+  font-size: 1.5rem;
+  float: right;
+}
+.is-favorite {
+  color: #ff0000;
+}
+.is-not-favorite {
+  color: #333333;
 }

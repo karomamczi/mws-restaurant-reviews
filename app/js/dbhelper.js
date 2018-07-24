@@ -253,6 +253,17 @@ export class DBHelper {
   }
 
   /**
+   * Update favorite restaurants on the server side and in IndexedDB.
+   */
+  static updateFavoriteStatus(id, isFavorite) {
+    fetch(`${this.DATABASE_URL}restaurants/${id}/?is_favorite=${isFavorite}`, {
+      method: 'PUT'
+    }).then(() => {
+      this.restaurantsDb.updateIsFavoriteProperty(id, isFavorite)
+    });
+  }
+
+  /**
    * Map marker for a restaurant.
    */
   static mapMarkerForRestaurant(restaurant, map) {
