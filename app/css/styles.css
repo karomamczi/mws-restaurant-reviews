@@ -362,7 +362,8 @@ nav h1 a {
 #review-comment,
 #rating-radiogroup,
 #submit-btn,
-#reset-btn {
+#reset-btn,
+#form-error {
   margin-bottom: 1rem;
 }
 #rating-radiogroup input {
@@ -392,6 +393,10 @@ nav h1 a {
 }
 #reset-btn:hover, #reset-btn:focus {
   background-color: #ff0000;
+}
+#form-error {
+  color: #ff0000;
+  font-size: 0.8rem;
 }
 @media screen and (max-width: 820px) {
   .reviewer-date {

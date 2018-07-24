@@ -13,6 +13,12 @@ document.addEventListener('DOMContentLoaded', () => {
   restaurantInfo.initMap();
 });
 
+document.getElementById('submit-btn').addEventListener('click', (event) => {
+  event.preventDefault();
+  const restaurantInfo = new RestaurantInfo();
+  restaurantInfo.validateInputs();
+});
+
 class RestaurantInfo {
   constructor() {
     this.restaurant;
@@ -67,7 +73,7 @@ class RestaurantInfo {
   /**
    * Create restaurant HTML and add it to the webpage
    */
-  fillRestaurantHTML (restaurant = this.restaurant) {
+  fillRestaurantHTML(restaurant = this.restaurant) {
     const name = document.getElementById('restaurant-name');
     name.innerHTML = restaurant.name;
 
@@ -185,7 +191,7 @@ class RestaurantInfo {
   /**
    * Get a parameter by name from page URL.
    */
-  getParameterByName (name, url) {
+  getParameterByName(name, url) {
     if (!url)
       url = window.location.href;
     name = name.replace(/[\[\]]/g, '\\$&');
@@ -196,5 +202,35 @@ class RestaurantInfo {
     if (!results[2])
       return '';
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
+  }
+
+  /**
+   * Remove dangerous input.
+   */
+  removeDangerousInput(value) {
+    return value.toString().replace('&','&amp;').replace('<','&lt;').replace('>','&gt;').replace('"','&quot;').replace("'",'&#x27').replace('/','&#x2F');
+  };
+
+  validateInputs() {
+    const authorName = this.removeDangerousInput(document.getElementById('review-author').value);
+    const rating = Array.from(document.getElementsByName('rating')).find(r => {
+      r.checked ? r.setAttribute('aria-checked', true) : r.setAttribute('aria-checked', false)
+      return r.checked
+    });
+    const comment = this.removeDangerousInput(document.getElementById('review-comment').value);
+    const formError = document.getElementById('form-error');
+    if (authorName && rating && comment) {
+      formError.hidden = true;
+      document.getElementById('review-form').reset();
+      this.addReview(authorName, rating.value, comment);
+    } else {
+      formError.hidden = false;
+    }
+  }
+
+  addReview(authorName, ratingValue, comment) {
+    console.log(authorName);
+    console.log(ratingValue);
+    console.log(comment);
   }
 }
