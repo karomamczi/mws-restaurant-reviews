@@ -211,6 +211,10 @@ class RestaurantInfo {
     return value.toString().replace('&','&amp;').replace('<','&lt;').replace('>','&gt;').replace('"','&quot;').replace("'",'&#x27').replace('/','&#x2F');
   };
 
+  /**
+   * Validate inputs, remove dangerous content and conditionally trigger
+   * addReview method or show warning for the badly filled form.
+   */
   validateInputs() {
     const authorName = this.removeDangerousInput(document.getElementById('review-author').value);
     const rating = Array.from(document.getElementsByName('rating')).find(r => {
@@ -228,6 +232,9 @@ class RestaurantInfo {
     }
   }
 
+  /**
+   * Send review to database.
+   */
   addReview(authorName, ratingValue, comment) {
     console.log(authorName);
     console.log(ratingValue);
