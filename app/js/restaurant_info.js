@@ -208,7 +208,14 @@ class RestaurantInfo {
    * Remove dangerous input.
    */
   removeDangerousInput(value) {
-    return value.toString().replace('&','&amp;').replace('<','&lt;').replace('>','&gt;').replace('"','&quot;').replace("'",'&#x27').replace('/','&#x2F');
+    return value
+      .toString()
+      .replace('&','&amp;')
+      .replace('<','&lt;')
+      .replace('>','&gt;')
+      .replace('"','&quot;')
+      .replace("'",'&#x27')
+      .replace('/','&#x2F');
   };
 
   /**
