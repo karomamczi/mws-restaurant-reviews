@@ -401,8 +401,10 @@ nav h1 a {
   float: right;
 }
 .is-favorite {
-  color: #ff0000;
+  color: #ffffff;
+  background-color: #c30000
 }
 .is-not-favorite {
   color: #333333;
+  background-color: #dddddd;
 }
