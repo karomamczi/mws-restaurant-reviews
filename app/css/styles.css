@@ -285,12 +285,15 @@ nav h1 a {
   text-transform: uppercase;
 	width: 90%;
 }
-#restaurant-container, #reviews-container {
+#restaurant-container,
+#reviews-container,
+#form-container {
   border-bottom: 0.1rem solid #d9d9d9;
   border-top: 0.1rem solid #ffffff;
   width: 50%;
 }
-#reviews-container h3 {
+#reviews-container h3,
+#form-container h3 {
   color: #b15f00;
   font-size: 2rem;
   font-weight: 300;
@@ -346,6 +349,50 @@ nav h1 a {
 #restaurant-hours td {
   color: #666666;
 }
+#review-form {
+  padding-left: 2rem;
+}
+#review-author-label,
+#review-author,
+#review-comment-label,
+#review-comment {
+  display: block;
+}
+#review-author,
+#review-comment,
+#rating-radiogroup,
+#submit-btn,
+#reset-btn {
+  margin-bottom: 1rem;
+}
+#rating-radiogroup input {
+  cursor: pointer;
+}
+#review-comment{
+  width: 50%;
+  height: 10rem;
+}
+#submit-btn,
+#reset-btn {
+  border: none;
+  outline: none;
+  color: #ffffff;
+  cursor: pointer;
+  border-radius: 0.2rem;
+  height: 1.5rem;
+}
+#submit-btn {
+  background-color: #b15f00;
+}
+#submit-btn:hover, #submit-btn:focus {
+  background-color: #f18200;
+}
+#reset-btn {
+  background-color: #c30000;
+}
+#reset-btn:hover, #reset-btn:focus {
+  background-color: #ff0000;
+}
 @media screen and (max-width: 820px) {
   .reviewer-date {
     float: none;
@@ -360,6 +407,7 @@ nav h1 a {
   .inside #map-container,
   #restaurant-container,
   #reviews-container,
+  #form-container,
   #breadcrumb {
     width: 100%;
   }

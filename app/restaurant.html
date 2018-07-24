@@ -44,7 +44,28 @@
         <p id="restaurant-address"></p>
         <table id="restaurant-hours"></table>
       </section>
-      <!-- end restaurant -->
+      <!-- End restaurant -->
+      <!-- Add review-->
+      <section id="form-container">
+        <h3 id="form-name">Add review</h3>
+        <form id="review-form">
+          <label id="review-author-label" for="review-author">Author</label>
+          <input id="review-author" name="name" type="text">
+          <div id="rating-radiogroup" role="radiogroup" aria-label="Select rating grade from 1 to 5">Rating
+            <input type="radio" name="rating" aria-checked="false" value="1">1</input>
+            <input type="radio" name="rating" aria-checked="false" value="2">2</input>
+            <input type="radio" name="rating" aria-checked="false" value="3">3</input>
+            <input type="radio" name="rating" aria-checked="false" value="4">4</input>
+            <input type="radio" name="rating" aria-checked="false" value="5">5</input>
+          </div>
+          <label id="review-comment-label" for="review-comment">Comment</label>
+          <textarea id="review-comment" name="comment"></textarea>
+          <div id="form-error"></div>
+          <button id="submit-btn" type="submit">Sumbit review</button>
+          <button id="reset-btn" type="reset">Reset form</button>
+        </form>
+      </section>
+      <!-- End add review-->
       <!-- Beginning reviews -->
       <section id="reviews-container">
         <ul id="reviews-list"></ul>
