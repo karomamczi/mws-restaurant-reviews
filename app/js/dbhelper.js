@@ -277,4 +277,11 @@ export class DBHelper {
     return marker;
   }
 
+  /**
+   * Add new review to database
+   */
+  static addNewReview(reviewObject) {
+
+  }
+
 }

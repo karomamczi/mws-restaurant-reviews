@@ -91,6 +91,8 @@ class RestaurantInfo {
     const cuisine = document.getElementById('restaurant-cuisine');
     cuisine.innerHTML = restaurant.cuisine_type;
 
+    document.getElementById('review-form').setAttribute('name', restaurant.id);
+
     // fill operating hours
     if (restaurant.operating_hours) {
       this.fillRestaurantHoursHTML();
@@ -156,7 +158,7 @@ class RestaurantInfo {
     const dateSpan = document.createElement('span');
     nameSpan.innerHTML = review.name;
     nameSpan.classList.add('reviewer-name');
-    dateSpan.innerHTML = review.date;
+    dateSpan.innerHTML = new Date(review.createdAt).toLocaleDateString();
     dateSpan.classList.add('reviewer-date');
     nameDateParagraph.appendChild(nameSpan);
     nameDateParagraph.appendChild(dateSpan);
@@ -244,8 +246,14 @@ class RestaurantInfo {
    * Send review to database.
    */
   addNewReview(authorName, ratingValue, comment) {
-    console.log(authorName);
-    console.log(ratingValue);
-    console.log(comment);
+    const reviewObject = {
+      restaurant_id: document.getElementById('review-form').getAttribute('name'),
+      name: authorName,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      rating: ratingValue,
+      comments: comment
+    }
+    DBHelper.addNewReview(reviewObject)
   }
 }
