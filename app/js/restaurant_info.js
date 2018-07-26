@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.getElementById('submit-btn').addEventListener('click', (event) => {
   event.preventDefault();
+  event.stopPropagation();
   const restaurantInfo = new RestaurantInfo();
   restaurantInfo.validateInputs();
 });
@@ -220,7 +221,7 @@ class RestaurantInfo {
 
   /**
    * Validate inputs, remove dangerous content and conditionally trigger
-   * addReview method or show warning for the badly filled form.
+   * addNewReview method or show warning for the badly filled form.
    */
   validateInputs() {
     const authorName = this.removeDangerousInput(document.getElementById('review-author').value);
@@ -229,11 +230,11 @@ class RestaurantInfo {
       return r.checked
     });
     const comment = this.removeDangerousInput(document.getElementById('review-comment').value);
-    const formError = document.getElementById('form-error');
+    const formError = document.getElementById('validation-error');
     if (authorName && rating && comment) {
       formError.hidden = true;
       document.getElementById('review-form').reset();
-      this.addReview(authorName, rating.value, comment);
+      this.addNewReview(authorName, rating.value, comment);
     } else {
       formError.hidden = false;
     }
@@ -242,7 +243,7 @@ class RestaurantInfo {
   /**
    * Send review to database.
    */
-  addReview(authorName, ratingValue, comment) {
+  addNewReview(authorName, ratingValue, comment) {
     console.log(authorName);
     console.log(ratingValue);
     console.log(comment);

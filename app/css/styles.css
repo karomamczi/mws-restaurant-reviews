@@ -363,7 +363,7 @@ nav h1 a {
 #rating-radiogroup,
 #submit-btn,
 #reset-btn,
-#form-error {
+#validation-error {
   margin-bottom: 1rem;
 }
 #rating-radiogroup input {
@@ -394,7 +394,7 @@ nav h1 a {
 #reset-btn:hover, #reset-btn:focus {
   background-color: #ff0000;
 }
-#form-error {
+#validation-error {
   color: #ff0000;
   font-size: 0.8rem;
 }
