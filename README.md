@@ -20,10 +20,10 @@ _Restaurants Reviews_ app meets conditions of:
 3. A window or new tab in your browser will show up as `http://localhost:8000`.
 
 ### Local server
-1. Download [Stage 2 repository](https://github.com/karomamczi/mws-restaurant-stage-2), which contains node server.
+1. Download [Stage 3 repository](https://github.com/karomamczi/mws-restaurant-stage-3), which contains node server.
 2. Install dependencies via `npm install`.
 3. Within that project run server via `node server`.
 4. Keep it running along with `http://localhost:8000` from this repo.
 
-You may find more information in the [README](https://github.com/karomamczi/mws-restaurant-stage-2/blob/master/README.md) file of the Stage 2 project.
+You may find more information in the [README](https://github.com/karomamczi/mws-restaurant-stage-3/blob/master/README.md) file of the Stage 3 project.
 
