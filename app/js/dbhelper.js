@@ -281,8 +281,9 @@ export class DBHelper {
    * Add new review to database
    */
   static addNewReview(reviewObject, callback) {
-    if ('online' in navigator && !navigator.online) {
+    if ('onLine' in navigator && !navigator.onLine) {
       DBHelper.addNewReviewWhenOnline(reviewObject);
+      callback(true, null);
       return;
     }
     const requestParams = {
