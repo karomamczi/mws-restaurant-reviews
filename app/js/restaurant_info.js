@@ -137,7 +137,8 @@ class RestaurantInfo {
         return;
       } else {
         const ul = document.getElementById('reviews-list');
-        reviews.forEach(review => {
+        const reviewsSortedByDate = this.sortReviewsByDate(reviews);
+        reviewsSortedByDate.forEach(review => {
           ul.appendChild(this.createReviewHTML(review));
         });
         container.appendChild(ul);
@@ -145,6 +146,17 @@ class RestaurantInfo {
 
     });
 
+  }
+
+  /**
+   * Sort reviews by date
+   */
+  sortReviewsByDate(reviews) {
+    return reviews.sort((previousReview, nextReview) => {
+      const previousDate = new Date(previousReview.createdAt);
+      const nextDate = new Date(nextReview.createdAt);
+      return nextDate.getTime() - previousDate.getTime();
+    });
   }
 
   /**
@@ -158,7 +170,8 @@ class RestaurantInfo {
     const dateSpan = document.createElement('span');
     nameSpan.innerHTML = review.name;
     nameSpan.classList.add('reviewer-name');
-    dateSpan.innerHTML = new Date(review.createdAt).toLocaleDateString();
+    const creationDate = new Date(review.createdAt);
+    dateSpan.innerHTML = `${creationDate.toLocaleDateString()} ${creationDate.getHours()}:${creationDate.getMinutes()}`;
     dateSpan.classList.add('reviewer-date');
     nameDateParagraph.appendChild(nameSpan);
     nameDateParagraph.appendChild(dateSpan);
