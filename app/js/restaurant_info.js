@@ -251,19 +251,22 @@ class RestaurantInfo {
       rating: ratingValue,
       comments: comment
     }
-    DBHelper.addNewReview(reviewObject);
+    DBHelper.addNewReview(reviewObject, (error, review) => {
+      if (error) {
+        console.error('Could not add new review with: ', error);
+        return;
+      } else {
+       this.addReviewToUI(review);
+      }
+    });
   }
 
 
-    /**
+  /**
    * Add reviews to the list
    */
-
   addReviewToUI(review) {
     const ul = document.getElementById('reviews-list');
-    reviews.forEach(review => {
-      ul.appendChild(this.createReviewHTML(review));
-    });
-    container.appendChild(ul);
+    ul.appendChild(this.createReviewHTML(review));
   }
 }

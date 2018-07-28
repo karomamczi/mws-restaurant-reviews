@@ -280,7 +280,7 @@ export class DBHelper {
   /**
    * Add new review to database
    */
-  static addNewReview(reviewObject) {
+  static addNewReview(reviewObject, callback) {
     if ('online' in navigator && !navigator.online) {
       DBHelper.addNewReviewWhenOnline(reviewObject);
       return;
@@ -298,9 +298,11 @@ export class DBHelper {
           return response.json();
         } else { // Oops!. Got an error from server.
           console.error(`Request failed. Review was not created.`);
+          callback(error, null);
         }
       }).then(response => {
         this.restaurantsDb.insertObjects(this.restaurantsDb.reviewsTable, [response]);
+        callback(null, response);
       });
   }
 
