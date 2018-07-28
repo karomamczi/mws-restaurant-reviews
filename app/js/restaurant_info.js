@@ -249,8 +249,6 @@ class RestaurantInfo {
     const reviewObject = {
       restaurant_id: document.getElementById('review-form').getAttribute('name'),
       name: authorName,
-      createdAt: new Date(),
-      updatedAt: new Date(),
       rating: ratingValue,
       comments: comment
     }

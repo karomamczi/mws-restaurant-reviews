@@ -281,6 +281,31 @@ export class DBHelper {
    * Add new review to database
    */
   static addNewReview(reviewObject) {
+    if ('online' in navigator && !navigator.online) {
+      DBHelper.addNewReviewWhenOnline(reviewObject);
+      return;
+    }
+    const requestParams = {
+      method: 'POST',
+      body: JSON.stringify(reviewObject),
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    };
+    fetch(`${DBHelper.DATABASE_URL}reviews`,requestParams)
+      .then((response) => {
+        if (response.status === 201) {
+          return response.json();
+        } else { // Oops!. Got an error from server.
+          console.error(`Request failed. Review was not created.`);
+        }
+      });
+  }
+
+  /**
+   * Add new review to IndexedDB pending-reviews table
+   */
+  static addNewReviewWhenOnline(reviewObject) {
 
   }
 
