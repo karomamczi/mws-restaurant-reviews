@@ -57,12 +57,12 @@ export class RestaurantsDB {
     });
   }
 
-  selectReviewsByRestaurantId(id) {
+  selectReviewsByRestaurantId(table, id) {
     return this.dbPromise.then(db => {
       if (!db) return;
       return db
-        .transaction(this.reviewsTable)
-        .objectStore(this.reviewsTable)
+        .transaction(table)
+        .objectStore(table)
         .index('restaurant_id')
         .getAll(id)
     }).catch(error => {

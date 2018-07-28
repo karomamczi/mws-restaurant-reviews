@@ -115,7 +115,7 @@ export class DBHelper {
   static fetchReviewsByRestaurantId(id, callback) {
     let cached = false;
 
-    this.restaurantsDb.selectReviewsByRestaurantId(id)
+    this.restaurantsDb.selectReviewsByRestaurantId(this.restaurantsDb.reviewsTable, id)
       .then(reviews => {
         if (reviews.length && !cached) {
           cached = true
