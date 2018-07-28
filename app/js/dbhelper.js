@@ -292,7 +292,7 @@ export class DBHelper {
         'Content-Type': 'application/json'
       })
     };
-    fetch(`${DBHelper.DATABASE_URL}reviews`,requestParams)
+    fetch(`${DBHelper.DATABASE_URL}reviews`, requestParams)
       .then(response => {
         if (response.status === 201) {
           return response.json();
@@ -301,8 +301,6 @@ export class DBHelper {
         }
       }).then(response => {
         this.restaurantsDb.insertObjects(this.restaurantsDb.reviewsTable, [response]);
-      }).catch(error => {
-        console.log(error);
       });
   }
 
