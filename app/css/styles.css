@@ -346,6 +346,12 @@ nav h1 a {
 .reviewer-comments {
   margin: 0 2rem 2rem;
 }
+.reviewer-offline-info {
+  background-color: #c30000;
+  color: #ffffff;
+  text-align: center;
+  margin-top: 0;
+}
 #restaurant-hours td {
   color: #666666;
 }

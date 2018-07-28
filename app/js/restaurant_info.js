@@ -152,6 +152,7 @@ class RestaurantInfo {
    */
   createReviewHTML(review) {
     const li = document.createElement('li');
+
     const nameDateParagraph = document.createElement('p');
     const nameSpan = document.createElement('span');
     const dateSpan = document.createElement('span');
@@ -163,6 +164,13 @@ class RestaurantInfo {
     nameDateParagraph.appendChild(dateSpan);
     nameDateParagraph.classList.add('reviewer-name-date')
     li.appendChild(nameDateParagraph);
+
+    if ('onLine' in navigator && !navigator.onLine) {
+      const offlineInfo = document.createElement('p');
+      offlineInfo.innerHTML = 'Loaded from offline cache';
+      offlineInfo.classList.add('reviewer-offline-info');
+      li.appendChild(offlineInfo);
+    }
 
     const rating = document.createElement('p');
     const ratingSpan = document.createElement('span');
@@ -267,6 +275,6 @@ class RestaurantInfo {
    */
   addReviewToUI(review) {
     const ul = document.getElementById('reviews-list');
-    ul.appendChild(this.createReviewHTML(review));
+    ul.insertBefore(this.createReviewHTML(review), ul.childNodes[0]);
   }
 }
