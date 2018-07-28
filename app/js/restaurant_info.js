@@ -195,7 +195,7 @@ class RestaurantInfo {
 
     if ('onLine' in navigator && !navigator.onLine && review.offline) {
       const offlineInfo = document.createElement('p');
-      offlineInfo.innerHTML = 'Loaded from offline cache';
+      offlineInfo.innerHTML = 'Saved offline';
       offlineInfo.classList.add('reviewer-offline-info');
       li.appendChild(offlineInfo);
     }
