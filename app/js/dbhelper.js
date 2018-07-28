@@ -299,6 +299,10 @@ export class DBHelper {
         } else { // Oops!. Got an error from server.
           console.error(`Request failed. Review was not created.`);
         }
+      }).then(response => {
+        this.restaurantsDb.insertObjects(this.restaurantsDb.reviewsTable, [response]);
+      }).catch(error => {
+        console.log(error);
       });
   }
 
