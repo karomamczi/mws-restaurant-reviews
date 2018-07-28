@@ -146,6 +146,8 @@ class RestaurantInfo {
 
     });
 
+    this.handleOnlineStatus();
+
   }
 
   /**
@@ -156,6 +158,18 @@ class RestaurantInfo {
       const previousDate = new Date(previousReview.createdAt);
       const nextDate = new Date(nextReview.createdAt);
       return nextDate.getTime() - previousDate.getTime();
+    });
+  }
+
+  /**
+   * Listen to online status and remove offline info.
+   */
+  handleOnlineStatus() {
+    window.addEventListener('online', () => {
+      const offlineInfoElements = document.querySelectorAll('.reviewer-offline-info');
+      offlineInfoElements.forEach(offlineInfoElement => {
+        offlineInfoElement.remove();
+      });
     });
   }
 
