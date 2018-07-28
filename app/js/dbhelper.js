@@ -119,7 +119,16 @@ export class DBHelper {
       .then(reviews => {
         if (reviews.length && !cached) {
           cached = true
-          return callback(null, reviews)
+          this.restaurantsDb.selectReviewsByRestaurantId(this.restaurantsDb.pendingReviewsTable, id)
+            .then(pendingReviews => {
+              if (pendingReviews.length) {
+                return callback(null, [...reviews, ...pendingReviews])
+              } else {
+                return callback(null, reviews)
+              }
+            }).catch(() => {
+              return callback(null, reviews)
+            })
         } else {
           fetch(`${this.DATABASE_URL}reviews/?restaurant_id=${id}`)
           .then(response => {
