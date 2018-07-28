@@ -283,6 +283,7 @@ export class DBHelper {
   static addNewReview(reviewObject, callback) {
     if ('onLine' in navigator && !navigator.onLine) {
       reviewObject.createdAt = new Date().getTime();
+      reviewObject.offline = true;
       this.restaurantsDb.insertObjects(this.restaurantsDb.pendingReviews, [reviewObject]);
       callback(null, reviewObject);
       return;

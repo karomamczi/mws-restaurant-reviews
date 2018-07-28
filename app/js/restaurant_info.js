@@ -193,7 +193,7 @@ class RestaurantInfo {
     nameDateParagraph.classList.add('reviewer-name-date')
     li.appendChild(nameDateParagraph);
 
-    if ('onLine' in navigator && !navigator.onLine) {
+    if ('onLine' in navigator && !navigator.onLine && review.offline) {
       const offlineInfo = document.createElement('p');
       offlineInfo.innerHTML = 'Loaded from offline cache';
       offlineInfo.classList.add('reviewer-offline-info');
