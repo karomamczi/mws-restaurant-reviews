@@ -7,6 +7,7 @@ export class RestaurantsDB {
     this.dbName = 'restaurant-reviews';
     this.restaurantsTable = 'restaurants';
     this.reviewsTable = 'reviews';
+    this.pendingReviews = 'pending-reviews';
     this.readWriteMode = 'readwrite';
     this.dbPromise = idb.open(this.dbName, this.version, upgradeDb => {
       switch (upgradeDb.oldVersion) {
@@ -14,7 +15,7 @@ export class RestaurantsDB {
           upgradeDb.createObjectStore(this.restaurantsTable, { keyPath: 'id' });
         case 1:
           upgradeDb.createObjectStore(this.reviewsTable, {keyPath: 'id'}).createIndex('restaurant_id', 'restaurant_id');
-          upgradeDb.createObjectStore('pending-reviews', {autoIncrement: true, keyPath: 'id'}).createIndex('restaurant_id', 'restaurant_id');
+          upgradeDb.createObjectStore(this.pendingReviews, {autoIncrement: true, keyPath: 'id'}).createIndex('restaurant_id', 'restaurant_id');
       }
     });
   }
@@ -80,6 +81,18 @@ export class RestaurantsDB {
           restaurant.is_favorite = isFavorite;
           restaurantsStore.put(restaurant);
         });
+    });
+  }
+
+  clearTable(table) {
+    this.dbPromise.then(db => {
+      if (!db) return;
+      return db
+        .transaction(table, this.readWriteMode)
+        .objectStore(table)
+        .clear();
+    }).catch(error => {
+      console.error(`Could not clear elements from ${table} table with: `, error)
     });
   }
 

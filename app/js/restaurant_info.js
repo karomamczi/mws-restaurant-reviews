@@ -166,6 +166,7 @@ class RestaurantInfo {
    */
   handleOnlineStatus() {
     window.addEventListener('online', () => {
+      DBHelper.addNewReviewsWhenOnline();
       const offlineInfoElements = document.querySelectorAll('.reviewer-offline-info');
       offlineInfoElements.forEach(offlineInfoElement => {
         offlineInfoElement.remove();

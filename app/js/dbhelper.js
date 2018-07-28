@@ -282,10 +282,26 @@ export class DBHelper {
    */
   static addNewReview(reviewObject, callback) {
     if ('onLine' in navigator && !navigator.onLine) {
-      DBHelper.addNewReviewWhenOnline(reviewObject);
-      callback(true, null);
+      reviewObject.createdAt = new Date().getTime();
+      this.restaurantsDb.insertObjects(this.restaurantsDb.pendingReviews, [reviewObject]);
+      callback(null, reviewObject);
       return;
     }
+    this.fetchAddNewReview(reviewObject)
+      .then(response => {
+        this.restaurantsDb.insertObjects(this.restaurantsDb.reviewsTable, [response]);
+        callback(null, response);
+      })
+      .catch(error => {
+        console.error(error);
+        callback(error, null);
+      });
+  }
+
+  /**
+   * Fetch POST request to add new review to backend
+   */
+  static fetchAddNewReview(reviewObject) {
     const requestParams = {
       method: 'POST',
       body: JSON.stringify(reviewObject),
@@ -293,25 +309,47 @@ export class DBHelper {
         'Content-Type': 'application/json'
       })
     };
-    fetch(`${DBHelper.DATABASE_URL}reviews`, requestParams)
+    return fetch(`${DBHelper.DATABASE_URL}reviews`, requestParams)
       .then(response => {
         if (response.status === 201) {
           return response.json();
         } else { // Oops!. Got an error from server.
           console.error(`Request failed. Review was not created.`);
-          callback(error, null);
         }
-      }).then(response => {
-        this.restaurantsDb.insertObjects(this.restaurantsDb.reviewsTable, [response]);
-        callback(null, response);
-      });
+      })
   }
 
   /**
    * Add new review to IndexedDB pending-reviews table
    */
-  static addNewReviewWhenOnline(reviewObject) {
+  static addNewReviewsWhenOnline() {
+    this.restaurantsDb.selectObjects(this.restaurantsDb.pendingReviews)
+      .then(pendingReviews => {
+        if (pendingReviews.length) {
+          const cleanPendingReviews = this.deleteTempProperties(pendingReviews)
+          cleanPendingReviews.forEach(pendingReview => {
+            this.fetchAddNewReview(pendingReview).then(response => {
+              this.restaurantsDb.insertObjects(this.restaurantsDb.reviewsTable, [response]);
+            })
+          });
+        }
+      }).then(() => {
+        this.restaurantsDb.clearTable(this.restaurantsDb.pendingReviews);
+      });
+  }
 
+  /**
+   * Delete temporary peroperties created for data management.
+   */
+  static deleteTempProperties(reviews) {
+    return reviews.map(review => {
+      return {
+        restaurant_id: review.restaurant_id,
+        name: review.name,
+        rating: review.rating,
+        comments: review.comments
+      };
+    })
   }
 
 }
