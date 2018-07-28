@@ -7,7 +7,7 @@ export class RestaurantsDB {
     this.dbName = 'restaurant-reviews';
     this.restaurantsTable = 'restaurants';
     this.reviewsTable = 'reviews';
-    this.pendingReviews = 'pending-reviews';
+    this.pendingReviewsTable = 'pending-reviews';
     this.readWriteMode = 'readwrite';
     this.dbPromise = idb.open(this.dbName, this.version, upgradeDb => {
       switch (upgradeDb.oldVersion) {
@@ -15,7 +15,7 @@ export class RestaurantsDB {
           upgradeDb.createObjectStore(this.restaurantsTable, { keyPath: 'id' });
         case 1:
           upgradeDb.createObjectStore(this.reviewsTable, {keyPath: 'id'}).createIndex('restaurant_id', 'restaurant_id');
-          upgradeDb.createObjectStore(this.pendingReviews, {autoIncrement: true, keyPath: 'id'}).createIndex('restaurant_id', 'restaurant_id');
+          upgradeDb.createObjectStore(this.pendingReviewsTable, {autoIncrement: true, keyPath: 'id'}).createIndex('restaurant_id', 'restaurant_id');
       }
     });
   }

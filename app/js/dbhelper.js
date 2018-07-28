@@ -284,7 +284,7 @@ export class DBHelper {
     if ('onLine' in navigator && !navigator.onLine) {
       reviewObject.createdAt = new Date().getTime();
       reviewObject.offline = true;
-      this.restaurantsDb.insertObjects(this.restaurantsDb.pendingReviews, [reviewObject]);
+      this.restaurantsDb.insertObjects(this.restaurantsDb.pendingReviewsTable, [reviewObject]);
       callback(null, reviewObject);
       return;
     }
@@ -324,7 +324,7 @@ export class DBHelper {
    * Add new review to IndexedDB pending-reviews table
    */
   static addNewReviewsWhenOnline() {
-    this.restaurantsDb.selectObjects(this.restaurantsDb.pendingReviews)
+    this.restaurantsDb.selectObjects(this.restaurantsDb.pendingReviewsTable)
       .then(pendingReviews => {
         if (pendingReviews.length) {
           const cleanPendingReviews = this.deleteTempProperties(pendingReviews)
@@ -335,7 +335,7 @@ export class DBHelper {
           });
         }
       }).then(() => {
-        this.restaurantsDb.clearTable(this.restaurantsDb.pendingReviews);
+        this.restaurantsDb.clearTable(this.restaurantsDb.pendingReviewsTable);
       });
   }
 
