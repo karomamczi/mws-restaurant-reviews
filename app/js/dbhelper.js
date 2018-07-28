@@ -27,7 +27,7 @@ export class DBHelper {
     let cached = false;
 
     this.restaurantsDb.selectObjects(this.restaurantsDb.restaurantsTable)
-      .then((restaurants) => {
+      .then(restaurants => {
         if (restaurants.length && !cached) {
           cached = true
           return callback(null, restaurants)
@@ -59,7 +59,7 @@ export class DBHelper {
     let cached = false;
 
     this.restaurantsDb.selectRestaurantById(id)
-      .then((restaurant) => {
+      .then(restaurant => {
         if (restaurant && !cached) {
           cached = true
           return callback(null, restaurant)
@@ -88,7 +88,7 @@ export class DBHelper {
     let cached = false;
 
     this.restaurantsDb.selectObjects(this.restaurantsDb.reviewsTable)
-      .then((reviews) => {
+      .then(reviews => {
         if (reviews.length && !cached) {
           cached = true
           return;
@@ -116,7 +116,7 @@ export class DBHelper {
     let cached = false;
 
     this.restaurantsDb.selectReviewsByRestaurantId(id)
-      .then((reviews) => {
+      .then(reviews => {
         if (reviews.length && !cached) {
           cached = true
           return callback(null, reviews)
@@ -293,7 +293,7 @@ export class DBHelper {
       })
     };
     fetch(`${DBHelper.DATABASE_URL}reviews`,requestParams)
-      .then((response) => {
+      .then(response => {
         if (response.status === 201) {
           return response.json();
         } else { // Oops!. Got an error from server.

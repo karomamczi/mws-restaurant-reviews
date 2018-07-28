@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   restaurantInfo.initMap();
 });
 
-document.getElementById('submit-btn').addEventListener('click', (event) => {
+document.getElementById('submit-btn').addEventListener('click', event => {
   event.preventDefault();
   event.stopPropagation();
   const restaurantInfo = new RestaurantInfo();

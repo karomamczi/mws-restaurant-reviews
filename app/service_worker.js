@@ -1,8 +1,8 @@
 const cacheVersion = 'restaurant-reviews';
 
-self.addEventListener('install', (event) => {
+self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(cacheVersion).then((cache) => {
+    caches.open(cacheVersion).then(cache => {
       return cache.addAll([
         '/',
         '/index.html',
@@ -42,7 +42,7 @@ self.addEventListener('install', (event) => {
         ]).then(() => {
           console.log('All files are cached successfully.');
           return self.skipWaiting();
-        }).catch((err) => {
+        }).catch(err => {
           console.log('File cache failed with:', err)
         });
     })
@@ -64,11 +64,11 @@ self.addEventListener('activate', function(event) {
 });
 
 
-self.addEventListener('fetch', (event) => {
+self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.open(cacheVersion).then((cache) => {
-      return cache.match(event.request).then((response) => {
-        return response || fetch(event.request).then((response) => {
+    caches.open(cacheVersion).then(cache => {
+      return cache.match(event.request).then(response => {
+        return response || fetch(event.request).then(response => {
           cache.put(event.request, response.clone());
           return response;
         });

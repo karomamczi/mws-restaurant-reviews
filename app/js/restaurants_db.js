@@ -20,63 +20,63 @@ export class RestaurantsDB {
   }
 
   selectObjects(table) {
-    return this.dbPromise.then((db) => {
+    return this.dbPromise.then(db => {
       if (!db) return;
       return db
         .transaction(table)
         .objectStore(table)
         .getAll();
-    }).catch((error) => {
+    }).catch(error => {
       console.log('Could not select data from database with: ', error);
     });
   }
 
   insertObjects(table, objects) {
-    return this.dbPromise.then((db) => {
-      objects.forEach((object) => {
+    return this.dbPromise.then(db => {
+      objects.forEach(object => {
         return db
           .transaction(table, this.readWriteMode)
           .objectStore(table)
           .put(object)
       });
-    }).catch((error) => {
+    }).catch(error => {
       console.log('Could not insert data into database with: ', error);
     });
   }
 
   selectRestaurantById(id) {
-    return this.dbPromise.then((db) => {
+    return this.dbPromise.then(db => {
       if (!db) return;
       return db
         .transaction(this.restaurantsTable)
         .objectStore(this.restaurantsTable)
         .get(id);
-    }).catch((error) => {
+    }).catch(error => {
       console.log('Could not select data by id from database with: ', error);
     });
   }
 
   selectReviewsByRestaurantId(id) {
-    return this.dbPromise.then((db) => {
+    return this.dbPromise.then(db => {
       if (!db) return;
       return db
         .transaction(this.reviewsTable)
         .objectStore(this.reviewsTable)
         .index('restaurant_id')
         .getAll(id)
-    }).catch((error) => {
+    }).catch(error => {
       console.log('Could not select data from database with: ', error);
     });
   }
 
   updateIsFavoriteProperty(id, isFavorite) {
-    return this.dbPromise.then((db) => {
+    return this.dbPromise.then(db => {
       if (!db) return;
       const restaurantsStore = db
         .transaction(this.restaurantsTable, this.readWriteMode)
         .objectStore(this.restaurantsTable);
       restaurantsStore.get(id)
-        .then((restaurant) => {
+        .then(restaurant => {
           restaurant.is_favorite = isFavorite;
           restaurantsStore.put(restaurant);
         });
