@@ -11,13 +11,12 @@ let map;
 document.addEventListener('DOMContentLoaded', () => {
   const restaurantInfo = new RestaurantInfo();
   restaurantInfo.initMap();
-});
 
-document.getElementById('submit-btn').addEventListener('click', event => {
-  event.preventDefault();
-  event.stopPropagation();
-  const restaurantInfo = new RestaurantInfo();
-  restaurantInfo.validateInputs();
+  document.getElementById('submit-btn').addEventListener('click', event => {
+    event.preventDefault();
+    event.stopPropagation();
+    restaurantInfo.validateInputs();
+  });
 });
 
 class RestaurantInfo {
@@ -252,6 +251,19 @@ class RestaurantInfo {
       rating: ratingValue,
       comments: comment
     }
-    DBHelper.addNewReview(reviewObject)
+    DBHelper.addNewReview(reviewObject);
+  }
+
+
+    /**
+   * Add reviews to the list
+   */
+
+  addReviewToUI(review) {
+    const ul = document.getElementById('reviews-list');
+    reviews.forEach(review => {
+      ul.appendChild(this.createReviewHTML(review));
+    });
+    container.appendChild(ul);
   }
 }

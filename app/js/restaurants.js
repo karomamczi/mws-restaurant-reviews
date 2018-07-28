@@ -14,16 +14,16 @@ document.addEventListener('DOMContentLoaded', () => {
   restaurants.fetchNeighborhoods();
   restaurants.fetchCuisines();
   restaurants.initMap();
-});
 
-document.getElementById('neighborhoods-select').addEventListener('change', () => {
-  const restaurants = new Restaurants();
-  restaurants.updateRestaurants();
-});
+  document.getElementById('neighborhoods-select').addEventListener('change', () => {
+    const restaurants = new Restaurants();
+    restaurants.updateRestaurants();
+  });
 
-document.getElementById('cuisines-select').addEventListener('change', () => {
-  const restaurants = new Restaurants();
-  restaurants.updateRestaurants();
+  document.getElementById('cuisines-select').addEventListener('change', () => {
+    const restaurants = new Restaurants();
+    restaurants.updateRestaurants();
+  });
 });
 
 class Restaurants {
