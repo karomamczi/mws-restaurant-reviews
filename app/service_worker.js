@@ -43,7 +43,7 @@ self.addEventListener('install', event => {
           console.log('All files are cached successfully.');
           return self.skipWaiting();
         }).catch(err => {
-          console.log('File cache failed with:', err)
+          console.error('File cache failed with:', err)
         });
     })
   );

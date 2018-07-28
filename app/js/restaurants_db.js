@@ -27,7 +27,7 @@ export class RestaurantsDB {
         .objectStore(table)
         .getAll();
     }).catch(error => {
-      console.log('Could not select data from database with: ', error);
+      console.error('Could not select data from database with: ', error);
     });
   }
 
@@ -40,7 +40,7 @@ export class RestaurantsDB {
           .put(object)
       });
     }).catch(error => {
-      console.log('Could not insert data into database with: ', error);
+      console.error('Could not insert data into database with: ', error);
     });
   }
 
@@ -52,7 +52,7 @@ export class RestaurantsDB {
         .objectStore(this.restaurantsTable)
         .get(id);
     }).catch(error => {
-      console.log('Could not select data by id from database with: ', error);
+      console.error('Could not select data by id from database with: ', error);
     });
   }
 
@@ -65,7 +65,7 @@ export class RestaurantsDB {
         .index('restaurant_id')
         .getAll(id)
     }).catch(error => {
-      console.log('Could not select data from database with: ', error);
+      console.error('Could not select data from database with: ', error);
     });
   }
 
