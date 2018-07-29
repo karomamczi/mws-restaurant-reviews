@@ -253,11 +253,11 @@ export class DBHelper {
   static getResponsiveImageUrl(id, attribute) {
     switch (attribute) {
       case 'src':
-        return `/img/${id}_400.jpg`;
+        return `/img/${id}_400.webp`;
       case 'srcset':
-        return `/img/${id}_400.jpg 400w, /img/${id}_600.jpg 600w`;
+        return `/img/${id}_400.webp 400w, /img/${id}_600.webp 600w`;
       default:
-        return `/img/${id}_400.jpg`;
+        return `/img/${id}_400.webp`;
     }
   }
 
