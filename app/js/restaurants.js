@@ -1,4 +1,5 @@
 import { DBHelper } from './dbhelper.js';
+import { on } from 'cluster';
 
 /**
  * External property initialization
@@ -162,11 +163,29 @@ class Restaurants {
     const li = document.createElement('li');
 
     const image = document.createElement('img');
-    image.className = 'restaurant-img';
     image.alt = `${restaurant.name} Restaurant`;
-    image.src = DBHelper.imageUrlForRestaurant(restaurant, 'src');
-    image.srcset = DBHelper.imageUrlForRestaurant(restaurant, 'srcset');
-    image.sizes = '(max-width: 684px) 100vw, 50vw';
+    const loadImage = image => {
+      image.className = 'restaurant-img';
+      image.src = DBHelper.imageUrlForRestaurant(restaurant, 'src');
+      image.srcset = DBHelper.imageUrlForRestaurant(restaurant, 'srcset');
+      image.sizes = '(max-width: 684px) 100vw, 50vw';
+    };
+    const onChange = (changes, observer) => {
+      changes.forEach(change => {
+        if (change.intersectionRatio > 0) {
+          loadImage(change.target);
+          observer.unobserve(change.target);
+        }
+      })
+    }
+    let intersectionObserver;
+    if ('IntersectionObserver' in window) {
+      intersectionObserver = new IntersectionObserver(onChange, {threshold: 0.1});
+      intersectionObserver.observe(image);
+    } else {
+      console.error('Lazy loading failed.');
+      loadImage(image);
+    }
     li.append(image);
 
     const name = document.createElement('h3');
