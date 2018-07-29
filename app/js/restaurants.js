@@ -1,5 +1,4 @@
 import { DBHelper } from './dbhelper.js';
-import { on } from 'cluster';
 
 /**
  * External property initialization
