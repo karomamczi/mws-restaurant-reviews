@@ -123,7 +123,24 @@ gulp.task('restaurantInfo', () => {
     .pipe(gulp.dest('.tmp/js'));
 });
 
-gulp.task('html', ['css', 'js', 'restaurantsDb', 'dbHelper', 'restaurants', 'restaurantInfo', 'sw', 'img'], () => {
+gulp.task('restaurantMap', () => {
+  const b = browserify({
+    debug: true
+  });
+
+  return b
+    .transform('babelify', {
+      presets: ['env']
+    })
+    .require('app/js/restaurant_map.js', { entry: true })
+    .bundle()
+    .pipe(source('restaurant_map.js'))
+    .pipe(buffer())
+    .pipe($.uglify())
+    .pipe(gulp.dest('.tmp/js'));
+});
+
+gulp.task('html', ['css', 'js', 'restaurantsDb', 'dbHelper', 'restaurants', 'restaurantInfo', 'restaurantMap', 'sw', 'img'], () => {
   return gulp.src('app/*.html')
     .pipe($.useref({searchPath: ['.tmp', 'app', '.']}))
     .pipe($.if(/\.js$/, $.uglify({compress: {drop_console: true}})))
@@ -153,7 +170,7 @@ gulp.task('clean', del.bind(null, ['.tmp']));
 gulp.task('serve', () => {
   runSequence(
     ['clean', 'wiredep'],
-    ['html', 'css', 'js', 'restaurantsDb', 'dbHelper', 'restaurants', 'restaurantInfo', 'sw', 'img'],
+    ['html', 'css', 'js', 'restaurantsDb', 'dbHelper', 'restaurants', 'restaurantInfo', 'restaurantMap', 'sw', 'img'],
     () => {
     browserSync.init({
       notify: false,
@@ -172,7 +189,7 @@ gulp.task('serve', () => {
     ]).on('change', reload);
 
     gulp.watch('app/css/**/*.css', ['html', 'css']);
-    gulp.watch('app/js/**/*.js', ['html', 'js', 'restaurantsDb', 'dbHelper', 'restaurants', 'restaurantInfo']);
+    gulp.watch('app/js/**/*.js', ['html', 'js', 'restaurantsDb', 'dbHelper', 'restaurants', 'restaurantInfo', 'restaurantMap']);
     gulp.watch('app/sw.js', ['sw']);
     gulp.watch('bower.json', ['wiredep']);
   });
