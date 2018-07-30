@@ -1,4 +1,5 @@
 import { DBHelper } from './dbhelper.js';
+import { RestaurantMap } from './restaurant_map.js'
 
 /**
  * External property initialization
@@ -28,33 +29,27 @@ class RestaurantInfo {
    * Initialize Google map, called from HTML.
    */
   initMap() {
-    window.initMap = () => {
-      this.fetchRestaurantFromURL((error, restaurant) => {
-        if (error) { // Got an error!
-          console.error(error);
-        } else {
-          map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 16,
-            center: restaurant.latlng,
-            scrollwheel: false
-          });
-          this.fillBreadcrumb();
-          DBHelper.mapMarkerForRestaurant(this.restaurant, map);
-        }
-      });
-    }
+    this.fetchRestaurantFromURL((error, restaurant) => {
+      if (error) {
+        console.error(error);
+      } else {
+        map = RestaurantMap.initMap(restaurant.latlng, 16);
+        this.fillBreadcrumb();
+        RestaurantMap.createMapMarkerForRestaurant(this.restaurant, map);
+      }
+    });
   }
 
   /**
    * Get current restaurant from page URL.
    */
   fetchRestaurantFromURL(callback) {
-    if (this.restaurant) { // restaurant already fetched!
+    if (this.restaurant) {
       callback(null, this.restaurant)
       return;
     }
     const id = this.getParameterByName('id');
-    if (!id) { // no id found in URL
+    if (!id) {
       error = 'No restaurant id in URL'
       callback(error, null);
     } else {
@@ -92,11 +87,10 @@ class RestaurantInfo {
 
     document.getElementById('review-form').setAttribute('name', restaurant.id);
 
-    // fill operating hours
     if (restaurant.operating_hours) {
       this.fillRestaurantHoursHTML();
     }
-    // fill reviews
+
     this.fillReviewsHTML();
   }
 

@@ -1,4 +1,5 @@
 import { DBHelper } from './dbhelper.js';
+import { RestaurantMap } from './restaurant_map.js'
 
 /**
  * External property initialization
@@ -34,21 +35,15 @@ class Restaurants {
   }
 
   /**
-   * Initialize Google map, called from HTML.
+   * Initialize Leaflet map, called from HTML.
    */
   initMap() {
-    window.initMap = () => {
-      let loc = {
+    let loc = {
         lat: 40.722216,
         lng: -73.987501
       };
-      map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 12,
-        center: loc,
-        scrollwheel: false
-      });
-      this.updateRestaurants();
-    }
+    map = RestaurantMap.initMap(loc, 12);
+    this.updateRestaurants();
   }
 
   /**
@@ -56,7 +51,7 @@ class Restaurants {
    */
   fetchNeighborhoods() {
     DBHelper.fetchNeighborhoods((error, neighborhoods) => {
-      if (error) { // Got an error
+      if (error) {
         console.error(error);
       } else {
         this.neighborhoods = neighborhoods;
@@ -83,7 +78,7 @@ class Restaurants {
    */
   fetchCuisines() {
     DBHelper.fetchCuisines((error, cuisines) => {
-      if (error) { // Got an error!
+      if (error) {
         console.error(error);
       } else {
         this.cuisines = cuisines;
@@ -120,7 +115,7 @@ class Restaurants {
     const neighborhood = nSelect[nIndex].value;
 
     DBHelper.fetchRestaurantByCuisineAndNeighborhood(cuisine, neighborhood, (error, restaurants) => {
-      if (error) { // Got an error!
+      if (error) {
         console.error(error);
       } else {
         this.resetRestaurants(restaurants);
@@ -133,13 +128,11 @@ class Restaurants {
    * Clear current restaurants, their HTML and remove their map markers.
    */
   resetRestaurants(restaurants) {
-    // Remove all restaurants
     this.restaurants = [];
     const ul = document.getElementById('restaurants-list');
     ul.innerHTML = '';
 
-    // Remove all map markers
-    markers.forEach(m => m.setMap(null));
+    markers.forEach(marker => map.removeLayer(marker));
     markers = [];
     this.restaurants = restaurants;
   }
@@ -260,10 +253,9 @@ class Restaurants {
    */
   addMarkersToMap(restaurants = this.restaurants) {
     restaurants.forEach(restaurant => {
-      // Add marker to the map
       const marker = DBHelper.mapMarkerForRestaurant(restaurant, map);
-      google.maps.event.addListener(marker, 'click', () => {
-        window.location.href = marker.url
+      marker.on('click', () => {
+        window.location.href = DBHelper.urlForRestaurant(restaurant)
       });
       markers.push(marker);
     });

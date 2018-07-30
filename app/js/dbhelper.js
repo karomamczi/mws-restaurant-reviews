@@ -1,4 +1,5 @@
 import { RestaurantsDB } from './restaurants_db.js';
+import { RestaurantMap } from './restaurant_map.js';
 /**
  * Common database helper functions.
  */
@@ -270,20 +271,6 @@ export class DBHelper {
     }).then(() => {
       this.restaurantsDb.updateIsFavoriteProperty(id, isFavorite)
     });
-  }
-
-  /**
-   * Map marker for a restaurant.
-   */
-  static mapMarkerForRestaurant(restaurant, map) {
-    const marker = new google.maps.Marker({
-      position: restaurant.latlng,
-      title: restaurant.name,
-      url: this.urlForRestaurant(restaurant),
-      map: map,
-      animation: google.maps.Animation.DROP}
-    );
-    return marker;
   }
 
   /**
