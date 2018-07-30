@@ -10,6 +10,7 @@
     <link defer rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
     <link defer rel="stylesheet" href="css/main.css">
     <link defer rel="stylesheet" href="css/restaurant.css">
+    <link defer rel="stylesheet" href="css/media-445.css" media="(max-width: 445px)">
     <link defer rel="stylesheet" href="css/media-684.css" media="(max-width: 380px)">
     <link defer rel="stylesheet" href="css/media-684.css" media="(max-width: 684px)">
     <link defer rel="stylesheet" href="css/media-700.css" media="(max-width: 700px)">
@@ -43,11 +44,11 @@
           <label id="review-author-label" for="review-author">Author</label>
           <input id="review-author" name="name" type="text" maxlength="50" required>
           <div id="rating-radiogroup" role="radiogroup" aria-label="Select rating grade from 1 to 5" required>Rating
-            <input type="radio" name="rating" aria-checked="false" value="1" required>1</input>
-            <input type="radio" name="rating" aria-checked="false" value="2">2</input>
-            <input type="radio" name="rating" aria-checked="false" value="3">3</input>
-            <input type="radio" name="rating" aria-checked="false" value="4">4</input>
-            <input type="radio" name="rating" aria-checked="false" value="5">5</input>
+            <input type="radio" name="rating" aria-label="1" aria-checked="false" value="1" required>1</input>
+            <input type="radio" name="rating" aria-label="2" aria-checked="false" value="2">2</input>
+            <input type="radio" name="rating" aria-label="3" aria-checked="false" value="3">3</input>
+            <input type="radio" name="rating" aria-label="4" aria-checked="false" value="4">4</input>
+            <input type="radio" name="rating" aria-label="5" aria-checked="false" value="5">5</input>
           </div>
           <label id="review-comment-label" for="review-comment">Comment</label>
           <textarea id="review-comment" name="comment" maxlength="500" required></textarea>
