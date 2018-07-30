@@ -253,7 +253,7 @@ class Restaurants {
    */
   addMarkersToMap(restaurants = this.restaurants) {
     restaurants.forEach(restaurant => {
-      const marker = DBHelper.mapMarkerForRestaurant(restaurant, map);
+      const marker = RestaurantMap.createMapMarkerForRestaurant(restaurant, map);
       marker.on('click', () => {
         window.location.href = DBHelper.urlForRestaurant(restaurant)
       });

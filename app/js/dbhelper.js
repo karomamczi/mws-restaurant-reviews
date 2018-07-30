@@ -1,5 +1,4 @@
 import { RestaurantsDB } from './restaurants_db.js';
-import { RestaurantMap } from './restaurant_map.js';
 /**
  * Common database helper functions.
  */
