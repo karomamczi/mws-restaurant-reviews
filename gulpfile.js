@@ -123,23 +123,6 @@ gulp.task('restaurantInfo', () => {
     .pipe(gulp.dest('.tmp/js'));
 });
 
-function lint(files) {
-  return gulp.src(files)
-    .pipe($.eslint({ fix: true }))
-    .pipe(reload({stream: true, once: true}))
-    .pipe($.eslint.format())
-    .pipe($.if(!browserSync.active, $.eslint.failAfterError()));
-}
-
-gulp.task('lint', () => {
-  return lint('app/js/**/*.js')
-    .pipe(gulp.dest('app/js'));
-});
-gulp.task('lint:test', () => {
-  return lint('test/spec/**/*.js')
-    .pipe(gulp.dest('test/spec'));
-});
-
 gulp.task('html', ['css', 'js', 'restaurantsDb', 'dbHelper', 'restaurants', 'restaurantInfo', 'sw', 'img'], () => {
   return gulp.src('app/*.html')
     .pipe($.useref({searchPath: ['.tmp', 'app', '.']}))
@@ -155,7 +138,8 @@ gulp.task('html', ['css', 'js', 'restaurantsDb', 'dbHelper', 'restaurants', 'res
       removeScriptTypeAttributes: true,
       removeStyleLinkTypeAttributes: true
     })))
-    .pipe(gulp.dest('dist'));
+    .pipe(gzip())
+    .pipe(gulp.dest('.tmp/'));
 });
 
 gulp.task('img', () => {
@@ -164,16 +148,7 @@ gulp.task('img', () => {
     .pipe(gulp.dest('.tmp/img'));
 });
 
-gulp.task('extras', () => {
-  return gulp.src([
-    'app/*',
-    '!app/*.html'
-  ], {
-    dot: true
-  }).pipe(gulp.dest('dist'));
-});
-
-gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
+gulp.task('clean', del.bind(null, ['.tmp']));
 
 gulp.task('serve', () => {
   runSequence(
@@ -203,35 +178,6 @@ gulp.task('serve', () => {
   });
 });
 
-gulp.task('serve:dist', ['default'], () => {
-  browserSync.init({
-    notify: false,
-    port: 9000,
-    server: {
-      baseDir: ['dist']
-    }
-  });
-});
-
-gulp.task('serve:test', ['js'], () => {
-  browserSync.init({
-    notify: false,
-    port: 9000,
-    ui: false,
-    server: {
-      baseDir: 'test',
-      routes: {
-        '/js': '.tmp/js',
-        '/bower_components': 'bower_components'
-      }
-    }
-  });
-
-  gulp.watch('app/js/**/*.js', ['js']);
-  gulp.watch(['test/spec/**/*.js', 'test/index.html', 'test/restaurant.html']).on('change', reload);
-  gulp.watch('test/spec/**/*.js', ['lint:test']);
-});
-
 gulp.task('wiredep', () => {
   gulp.src('app/*.html')
     .pipe(wiredep({
@@ -240,13 +186,9 @@ gulp.task('wiredep', () => {
     .pipe(gulp.dest('app'));
 });
 
-gulp.task('build', ['lint', 'html', 'img', 'extras'], () => {
-  return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
-});
-
 gulp.task('default', () => {
   return new Promise(resolve => {
     dev = false;
-    runSequence(['clean', 'wiredep'], 'build', resolve);
+    runSequence(['clean', 'wiredep'], resolve);
   });
 });
