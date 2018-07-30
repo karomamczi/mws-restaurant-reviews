@@ -1,0 +1,24 @@
+.inside #footer,
+.inside #map-container,
+#restaurant-container,
+#reviews-container,
+#form-container,
+#breadcrumb {
+  width: 100%;
+}
+.inside #map-container {
+  height: 15rem;
+  position: relative;
+  top: 8rem;
+}
+#reviews-list,
+#reviews-list li {
+  overflow-x: hidden;
+}
+.reviewer-date {
+  float: right;
+  margin-left: 0;
+}
+.reviewer-name-date {
+  height: unset;
+}

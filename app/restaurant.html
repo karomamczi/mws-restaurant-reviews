@@ -7,36 +7,29 @@
     <meta name='mobile-web-app-capable' content='yes'>
     <link rel="shortcut icon" type="image/png" href="/img/restaurant-16.png"/>
     <link rel="manifest" href="/manifest.json">
-    <!-- Normalize.css for better cross-browser consistency -->
-    <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
-    <!-- Main CSS file -->
-    <link rel="stylesheet" href="css/styles.css" type="text/css">
+    <link defer rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
+    <link defer rel="stylesheet" href="css/main.css">
+    <link defer rel="stylesheet" href="css/restaurant.css">
+    <link defer rel="stylesheet" href="css/media-684.css" media="(max-width: 380px)">
+    <link defer rel="stylesheet" href="css/media-684.css" media="(max-width: 684px)">
+    <link defer rel="stylesheet" href="css/media-700.css" media="(max-width: 700px)">
+    <link defer rel="stylesheet" href="css/media-820.css" media="(max-width: 820px)">
     <meta name='theme-color' content='#252831'>
     <title>Restaurant Reviews</title>
   </head>
   <body class="inside">
-    <!-- Beginning header -->
     <header>
-      <!-- Beginning nav -->
       <nav>
         <h1><a href="/">Restaurant Reviews</a></h1>
       </nav>
-      <!-- Beginning breadcrumb -->
       <ul id="breadcrumb" role="navigation">
         <li><a href="/">Home</a></li>
       </ul>
-      <!-- End breadcrumb -->
-      <!-- End nav -->
     </header>
-    <!-- End header -->
-    <!-- Beginning main -->
     <main id="maincontent">
-      <!-- Beginning map -->
       <section id="map-container">
         <div id="map" role="application"></div>
       </section>
-      <!-- End map -->
-      <!-- Beginning restaurant -->
       <section id="restaurant-container">
         <h2 id="restaurant-name"></h2>
         <img id="restaurant-img">
@@ -44,8 +37,6 @@
         <p id="restaurant-address"></p>
         <table id="restaurant-hours"></table>
       </section>
-      <!-- End restaurant -->
-      <!-- Add review-->
       <section id="form-container">
         <h3>Add new review</h3>
         <form id="review-form">
@@ -65,26 +56,18 @@
           <button id="reset-btn" type="reset">Reset form</button>
         </form>
       </section>
-      <!-- End add review-->
-      <!-- Beginning reviews -->
       <section id="reviews-container">
         <ul id="reviews-list"></ul>
       </section>
-      <!-- End reviews -->
     </main>
-    <!-- End main -->
-    <!-- Beginning footer -->
     <footer id="footer">
       Copyright &copy; <span id="year"></span> <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
     </footer>
-    <!-- End footer -->
-    <!-- Beginning scripts -->
-    <script src="js/service_worker_register.js"></script>
+    <script async defer src="js/service_worker_register.js"></script>
     <script src="js/restaurants_db.js"></script>
     <script src="js/dbhelper.js"></script>
     <script src="js/restaurant_info.js"></script>
-    <script src="js/current_year.js"></script>
+    <script async defer src="js/current_year.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initMap"></script>
-    <!-- End scripts -->
   </body>
 </html>

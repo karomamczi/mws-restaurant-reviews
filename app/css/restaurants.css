@@ -1,0 +1,113 @@
+.filter-options {
+  width: 100%;
+  height: 10rem;
+  align-items: center;
+  background-color: #cccccc;
+}
+.filter-options h2 {
+  background-color: #333333;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: normal;
+  line-height: 2;
+  margin: 0;
+  text-align: center;
+}
+.filter-options .row {
+  box-sizing: border-box;
+  padding: 0 2rem 0 2rem;
+}
+.filter-options .row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.filter-options .column {
+  float: left;
+  width: 50%;
+}
+.filter-options select {
+  background-color: #ffffff;
+  border: 0.1rem solid #ffffff;
+  font-family: 'Arial', sans-serif;
+  font-size: 0.95rem;
+  height: 2.5rem;
+  letter-spacing: 0;
+  margin: 1rem;
+  padding: 0 0.5rem;
+  width: 12rem;
+  cursor: pointer;
+}
+#restaurants-list {
+  background-color: #f3f3f3;
+  text-align: center;
+  list-style-type: none;
+  margin-left: -2rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+#restaurants-list li {
+  background-color: #ffffff;
+  border: 0.1rem solid #cccccc;
+  font-family: 'Arial', sans-serif;
+  margin: 1.5rem;
+  min-height: 15rem;
+  padding: 0 2rem 2rem;
+  text-align: left;
+  width: 100%;
+}
+#restaurants-list .restaurant-img {
+  background-color: #cccccc;
+  display: block;
+  margin-top: 2rem;
+  max-width: 100%;
+  height: auto;
+  text-align: center;
+}
+#restaurants-list li h3 {
+  color: #b15f00;
+  font-family: 'Arial', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 200;
+  letter-spacing: 0;
+  line-height: 1.3;
+  margin: 2rem 0 1rem;
+  text-transform: uppercase;
+}
+#restaurants-list p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+#restaurants-list li a {
+  background-color: #b15f00;
+  color: #ffffff;
+  display: inline-block;
+  font-size: 0.8rem;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  border-radius: 0.25rem;
+  padding: 0.5rem 0.6rem 0.5rem 0.6rem;
+}
+#restaurants-list li a:hover,
+#restaurants-list li a:focus {
+  background-color: #f16c00;
+}
+.fav-btn {
+  cursor: pointer;
+  border-radius: 2rem;
+  border: none;
+  outline: none;
+  height: 2.3rem;
+  width: 2.3rem;
+  font-size: 1.5rem;
+  float: right;
+}
+.is-favorite {
+  color: #ffffff;
+  background-color: #c30000
+}
+.is-not-favorite {
+  color: #333333;
+  background-color: #dddddd;
+}

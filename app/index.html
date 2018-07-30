@@ -7,8 +7,12 @@
     <meta name='mobile-web-app-capable' content='yes'>
     <link rel="shortcut icon" type="image/png" href="/img/restaurant-16.png"/>
     <link rel="manifest" href="/manifest.json">
-    <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
-    <link rel="stylesheet" href="css/styles.css">
+    <link defer rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
+    <link defer rel="stylesheet" href="css/main.css">
+    <link defer rel="stylesheet" href="css/restaurants.css" lazyload="1">
+    <link defer rel="stylesheet" href="css/media-445.css" media="(max-width: 445px)">
+    <link defer rel="stylesheet" href="css/media-550.css" media="(max-width: 550px)">
+    <link defer rel="stylesheet" href="css/media-685.css" media="(min-width: 685px)">
     <meta name='theme-color' content='#252831'>
     <title>Restaurant Reviews</title>
   </head>
@@ -43,11 +47,11 @@
         <ul id="restaurants-list"></ul>
       </section>
     </main>
-    <script src="js/service_worker_register.js"></script>
+    <script async defer src="js/service_worker_register.js"></script>
     <script src="js/restaurants_db.js"></script>
     <script src="js/dbhelper.js"></script>
     <script src="js/restaurants.js"></script>
-    <script src="js/current_year.js"></script>
+    <script async defer src="js/current_year.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initMap"></script>
     <footer id="footer">
       Copyright &copy; <span id="year"></span> <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
