@@ -198,3 +198,6 @@
   color: #ff0000;
   font-size: 0.8rem;
 }
+.leaflet-top, .leaflet-bottom {
+  z-index: unset !important;
+}
