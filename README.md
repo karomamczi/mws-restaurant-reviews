@@ -27,3 +27,5 @@ _Restaurants Reviews_ app meets conditions of:
 
 You may find more information in the [README](https://github.com/karomamczi/mws-restaurant-stage-3/blob/master/README.md) file of the Stage 3 project.
 
+### API for maps
+Spatial visualization is enabled with [Leaflet.js API](https://leafletjs.com/). You can switch to [master branch](https://github.com/karomamczi/mws-restaurant-reviews) to see [Google Maps API](https://developers.google.com/maps/documentation/) implementation (for development use only).
