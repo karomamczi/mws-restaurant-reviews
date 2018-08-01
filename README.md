@@ -29,3 +29,6 @@ You may find more information in the [README](https://github.com/karomamczi/mws-
 
 ### API for maps
 Spatial visualization is enabled with [Leaflet.js API](https://leafletjs.com/). You can switch to [master branch](https://github.com/karomamczi/mws-restaurant-reviews) to see [Google Maps API](https://developers.google.com/maps/documentation/) implementation (for development use only).
+
+### Certification
+Completing this course enabled me to receive the [Mobile Web Specialist Nanodegree Certificate](https://confirm.udacity.com/F4LLDHF4).
