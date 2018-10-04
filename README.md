@@ -6,7 +6,7 @@
 
 ### Specifications
 
-_Restaurants Reviews_ app meets conditions of:
+_Restaurant Reviews_ app meets conditions of:
 * responsive design,
 * comfortable use in the browser on the computer, as well as on any mobile device,
 * accessiblity for screen reader use,
